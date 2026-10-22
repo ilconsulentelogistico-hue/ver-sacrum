@@ -1,0 +1,7 @@
+# Primo collegamento fisico: campo → magazzino
+
+Per i **campi del giocatore**, il collegamento automatico sceglie un abitante libero già esistente. L’abitante raggiunge il campo, preleva un carico reale, cammina fino al magazzino e consegna. La scorta resta nel campo fino al prelievo, poi è nel carico personale, poi nel deposito; le prenotazioni del trasporto esistente impediscono un secondo prelievo della stessa quantità. Se non c’è nessuno libero o spazio nel deposito, il raccolto aspetta. La scorta minima impostata sul collegamento viene rispettata. Se il collegamento viene chiuso prima del prelievo, l’incarico viene annullato e la prenotazione sparisce. Il salvataggio durante il viaggio conserva persona, merce e destinazione.
+
+Il trasporto usa `assignHaul`, `prepareHaul` e `updateHaul` già presenti; il wrapper delle persone neutrali ora inoltra anche il nuovo limite del carico. Per ora la modifica riguarda il segmento campo→magazzino del giocatore. I villaggi neutrali e gli altri segmenti automatici mantengono il comportamento precedente; servono tappe distinte per la catena completa. Il raccolto non appare più direttamente nel magazzino del giocatore nel medesimo tick.
+
+Test `tests/physical-farm-warehouse.cjs`: 3/3 su carico reale, salvataggio a metà viaggio, assenza di addetto, scorta minima e link chiuso. Suite completa: 341/341, zero errori; sintassi dei moduli toccati e `git diff --check` positivi.

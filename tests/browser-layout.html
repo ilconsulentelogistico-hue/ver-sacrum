@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terra Italica — verifica viewport</title>
+<style>body{margin:16px;background:#101510;color:#eee;font:16px system-ui}header{display:flex;align-items:center;gap:16px;margin-bottom:12px}select{font:inherit;padding:8px}iframe{display:block;border:1px solid #999;background:#101510}</style>
+<header><label>Viewport <select id="size"><option value="390,740">Telefono 390 × 740</option><option value="320,640">Telefono piccolo 320 × 640</option><option value="740,390">Orizzontale 740 × 390</option><option value="1024,768">Tablet 1024 × 768</option></select></label><span>Test layout in iframe: non emula touch, hardware o safe area.</span></header>
+<iframe id="gameFrame" title="Gioco nel viewport di prova" src="../index.html?build=38" width="390" height="740"></iframe>
+<script>document.querySelector('#size').onchange=e=>{const [w,h]=e.target.value.split(',');const frame=document.querySelector('#gameFrame');frame.width=w;frame.height=h;};</script>
+</html>

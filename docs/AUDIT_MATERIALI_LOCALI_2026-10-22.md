@@ -1,0 +1,7 @@
+# Audit: materiali edilizi fra case comuni distanti
+
+Prova con salvataggio nuovo, Clan del Guado integrato. Casa comune iniziale e casa del Guado distanti 41 caselle. Ho messo legno 0 nel magazzino iniziale e 20 in quello del Guado. `canPay({wood:5})` ha risposto vero; `pay({wood:5})` ha prelevato 5 dal Guado, anche senza strada né trasportatore. La causa è `settlement.js`: `communalStock`, `canPay` e `pay` aggregano tutti i magazzini del proprietario 0, senza casa comune di riferimento.
+
+Punti da correggere insieme: verifica e pagamento di edifici/strade in `game.js` e `settlement.js`; preventivi, conferma e pagamento delle palizzate in `construction-placement.js`; anteprima touch in `touch-modifier.js`. Il dono diplomatico usa gli stessi metodi e deve continuare a prelevare dalla casa comune iniziale o da un deposito specificato, senza prelievi invisibili da villaggi remoti. Ogni cantiere deve identificare la casa comune locale e i suoi magazzini collegati. Una palizzata che attraversa più distretti richiede o costi separati per distretto o un rifiuto esplicito fino al supporto completo. Non basta cambiare il numero mostrato nella UI: anche il pagamento deve essere locale e atomico.
+
+Script di prova: il breve comando Node usato nell'audit è riproducibile creando una partita con `tests/harness.cjs`, integrando owner 1, portando a zero il legno nei `communalStores(0,main)` e a 20 quello nei `communalStores(0,joined)`, poi invocando `canPay` e `pay` per 5 legno.

@@ -1,0 +1,7 @@
+# Dove costa la folla visibile
+
+Chrome headless sul server, emulazione 393×851 DPR 2, mappa 512 con 300 abitanti sintetici. Dopo 2,5 s di riscaldamento, misurati 5 s per caso. Nella vista vicina sono stati disegnati 43.941 personaggi in 151 frame (circa 291 per frame); in quella lontana 1.430 in 286 frame (5 per frame). `drawHuman` ha impiegato 304 ms totali contro 31 ms; `draw` p95 4,3 contro 2,2 ms. `updateUI` ha impiegato 82 e 133 ms totali: questi campioni non indicano che sia il principale costo della folla visibile. Il frame completo p95 era 46,6 contro 25,1 ms. I JSON e gli script sono in `Rtsmobile-ricerca/audit-mobile-crowd-draw-2026-10-22/`.
+
+Prova A/B/A delle ombre dei personaggi, solo in memoria browser, senza cambiare file: p95 del disegno con ombre 5,9/5,3 ms e senza 4,6/4,3 ms. Il p95 del frame intero resta nell'intervallo 49,3–54,7 ms nei quattro campioni, mentre il numero di risorse caricate cresce durante la prova (1.212→1.721), quindi il confronto non isola interamente il trattamento delle ombre. Eliminare le ombre peggiorerebbe la leggibilità della folla. Modifica scartata; codice e resa visiva invariati.
+
+Il test precedente di disegno diretto degli sprite statici non aveva dato beneficio affidabile (`ESITO_STATIC_SPRITE_FASTPATH_2026-10-22.md`). Il collo di bottiglia reale sul Redmi Note 10 va ancora misurato sul dispositivo. Nel frattempo il prossimo test utile è un gruppo di 100/300 lavoratori con incarichi su blocchi lontani, perché la fixture attuale misura persone mobilitate ferme e non la simulazione economica completa.

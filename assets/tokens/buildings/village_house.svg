@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Casa italica — vista dall’alto</title>
+  <desc>Abitazione quadrangolare, intonaco ocra, tetto in terracotta e travi scure. Disegno vettoriale nativo.</desc>
+  <path d="M11 12h44v44H11z" fill="#392E24" opacity=".18"/>
+  <path d="M9 9h44v44H9z" fill="#D8BD87" stroke="#503B2C" stroke-width="2"/>
+  <path d="M12 12h38v38H12z" fill="#9A6F47"/>
+  <path d="M7 9h48v40H7z" fill="#A55A39" stroke="#4F3529" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M8 10h23v38H8z" fill="#BE784B"/>
+  <path d="M32 10h22v38H32z" fill="#87452F"/>
+  <g stroke="#E1A46C" stroke-width="1.4" opacity=".65">
+    <path d="M9 17h20M9 25h20M9 33h20M9 41h20"/>
+  </g>
+  <g stroke="#C47D50" stroke-width="1.4" opacity=".75">
+    <path d="M34 17h18M34 25h18M34 33h18M34 41h18"/>
+  </g>
+  <g stroke="#72422D" stroke-width="1" opacity=".7">
+    <path d="M16 10v7m7 0v8m-7 0v8m7 0v8m-7 0v7M40 10v7m7 0v8m-7 0v8m7 0v8m-7 0v7"/>
+  </g>
+  <path d="M29 8h5v42h-5z" fill="#663C2B" stroke="#493127" stroke-width="1.2"/>
+  <path d="M30 9h2v39h-2z" fill="#D39259"/>
+  <path d="M8 47h46v3H8z" fill="#543B2B"/>
+  <path d="M25 51h12v4H25z" fill="#49382B"/>
+  <path d="M23 55h16v4H23z" fill="#B9A783" stroke="#6B5941" stroke-width="1"/>
+  <path d="M11 51h8m25 0h6" stroke="#F0D8A2" stroke-width="2"/>
+</svg>

@@ -1,0 +1,16 @@
+const test=require('node:test'),assert=require('node:assert/strict'),make=require('./harness.cjs');
+const setup=()=>{const e=make([],{neutrals:true}),g=e.g;g.ensurePolitics();return{...e,g,s:g.neutralSettlement(1),own:g.buildings.find(b=>b.owner===0&&b.type==='warehouse')}};
+const card=(html,name)=>html.split('<article').find(part=>part.includes(name))||'';
+test('every action states its effect and blocked actions say why',()=>{const{g,s,own,byId}=setup();own.inventory.items.food=0;g.stock.food=0;g.renderPolitics();const html=card(byId.politicsList.innerHTML,s.name);
+  assert.match(html,/\+12 influenza · \+4 lealtà · −3 resistenza|servono 3 cibo libero/);
+  assert.match(html,/\+5 influenza · −5 lealtà · \+12 resistenza/);
+  assert.match(html,/data-politics="gift"[^>]*disabled/,'gift is disabled without free food');
+  assert.match(html,/servono 3 cibo libero alla Casa comune/);
+  assert.match(html,/Tua influenza[\s\S]*Lealtà[\s\S]*Resistenza/);});
+test('alliance shows each requirement and opens only when all are met',()=>{const{g,s,own,byId}=setup();own.inventory.items.food=40;g.renderPolitics();let html=card(byId.politicsList.innerHTML,s.name);
+  assert.match(html,/Per l’alleanza/);assert.match(html,/✗ Influenza almeno 75 · ora 0/);assert.match(html,/data-politics="alliance"[^>]*disabled/);
+  assert.doesNotMatch(html,/data-politics="integrate"/,'accession is hidden before an alliance');
+  s.base.playerInfluence=80;s.base.loyalty=70;s.base.resistance=20;s.base.foodShortage=0;g.renderPolitics();html=card(byId.politicsList.innerHTML,s.name);
+  assert.match(html,/✓ Influenza almeno 75 · ora 80/);assert.doesNotMatch(html,/data-politics="alliance"[^>]*disabled/);
+  assert(g.diplomacyAction(1,'alliance','ui-pact').ok);g.renderPolitics();html=card(byId.politicsList.innerHTML,s.name);
+  assert.match(html,/Patto di alleanza in vigore/);assert.match(html,/Per l’adesione alla confederazione/);assert.match(html,/Fiducia stabile: 0\/60 giorni/);assert.match(html,/data-politics="integrate"[^>]*disabled/);});

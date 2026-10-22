@@ -1,0 +1,937 @@
+{
+  "active_task": "T24",
+  "automation_id": "6aab7d16987881918a9b34ee4eaa83e7",
+  "baseline_build": 32,
+  "baseline_commit": "0b94e2eb4323e4195e1595da1a715052c8bd4822",
+  "lease": null,
+  "project": "Terra Italica / Ver Sacrum mobile",
+  "repository": "CzekUns/Rtsmobile",
+  "runs": [
+    {
+      "at": "2026-09-17T07:39:07.903363+02:00",
+      "notes": "Audit iniziale concluso; test locali della base passano. Pianificazione e automazione in preparazione.",
+      "result": "done",
+      "task": "T00"
+    },
+    {
+      "at": "2026-09-17T11:05:07Z",
+      "branch": "work/T02-persistent-people",
+      "commit": "8c8d408ab2cf232acd07d1877d64beea19302e43",
+      "next": "Recheck workflow 35213852536. If successful mark T02 done, then implement T03. T01 remains blocked.",
+      "notes": "Restored missing remote plan/register from prepared local documents on unchanged build-32 baseline; acquired non-forced lease. T01 Chromium executable missing. Implemented T02 and v4 migration; all Node suites pass.",
+      "result": "done",
+      "task": "T01/T02"
+    },
+    {
+      "at": "2026-09-17T12:12:00Z",
+      "branch": "work/T03-residents",
+      "commit": "2f3c15a249c7cccaf69eaae6e9dea679f8696817",
+      "next": "Publish Build 34, verify Pages, then mark T03 done and begin T04 community panel.",
+      "notes": "Confirmed Build 33 Pages deployment success. Implemented resident entry/exit, capacity, persistent identity/cargo, destroyed-district evacuation and blocked-exit handling with v5 save migration.",
+      "result": "done",
+      "task": "T02/T03",
+      "workflow": 35219603988
+    },
+    {
+      "at": "2026-09-17T12:30:30.560803+00:00",
+      "next": "Confirm Build 35 Pages then T05 population.",
+      "notes": "Community panel and nominal mobilization; additive optional mobilized flag in v5. Also prevented hidden residents from being auto-assigned to construction.",
+      "result": "awaiting_deploy",
+      "task": "T04"
+    },
+    {
+      "at": "2026-09-17T12:35:54.980Z",
+      "next": "Confirm Build 36 deploy; T06 equipment data next.",
+      "notes": "Conditional housed arrivals, actual-person food consumption, local unreserved food, housing and requirements UI; provisional configurable balance documented.",
+      "result": "awaiting_deploy",
+      "task": "T05"
+    },
+    {
+      "at": "2026-09-17T17:08:41.879Z",
+      "branch": "work/T06-equipment",
+      "next": "Verify Build 37 deployment, then T07 paperdoll.",
+      "notes": "Verified Build 36 deployment; implemented unique equipment ledger, atomic transfers, local access and capacity, death drops, conservative v5 load.",
+      "result": "awaiting_deploy",
+      "task": "T05/T06"
+    },
+    {
+      "at": "2026-09-17T17:17:38.991Z",
+      "branch": "work/T07-paperdoll",
+      "next": "Verify Build 38 Pages and real UI, then T08 separate Skills.",
+      "notes": "Cloud browser resolves T01 blocker. Implemented identity-bound Character dialog, local object transfers and responsive layout test fixture.",
+      "result": "awaiting_deploy",
+      "task": "T01/T07"
+    },
+    {
+      "at": "2026-09-17T17:24:22.742Z",
+      "task": "T01/T06/T07",
+      "result": "done",
+      "branch": "work/T07-paperdoll",
+      "commit": "37bb617e782328fc34cb5e65867161b14abb5af0",
+      "verification_commit": "69209884cef27f1c51296beca4a6fb777649b9f9",
+      "notes": "Completed real-browser T01 after discovering cloud Chrome, verified T06 equipment and T07 Character. Build 38 deployed and UI transfer/persistence tested. Narrow iframe CSS layouts checked; physical devices, touch and item art layers remain unverified/not implemented. Lease released.",
+      "next": "T08 separate Skills dialog, progress through use and persistence; then T09 construction knowledge."
+    },
+    {
+      "at": "2026-09-17T18:16:00Z",
+      "task": "T08",
+      "result": "awaiting_deploy",
+      "branch": "work/T08-skills",
+      "commit": "adf3d7fa75f038bbb188d51514e766239504ae27",
+      "notes": "Implemented separate identity-bound Skill dialog, visible levels and XP progress, overflow-preserving multi-level gain, configurable provisional cap/thresholds, resident inspection and persistence. Eight new Skill regressions and all prior Node VM/DOM suites pass; syntax and diff checks pass. Browser/hardware checks not yet counted.",
+      "next": "Verify Build 39 Pages deployment and real browser Skill dialog; then mark T08 done and begin T09."
+    },
+    {
+      "at": "2026-09-17T23:06:31Z",
+      "task": "T08/T09",
+      "result": "awaiting_deploy",
+      "branch": "work/T09-construction-knowledge",
+      "commit": "57f149e0fff0882eda354a825d6fa713c5a280f8",
+      "notes": "Verified Build 39 Pages success and exercised the separate Skill dialog in real cloud Chrome. Implemented Build 40 personal/tribal construction knowledge, configurable thresholds, visible locks, pre-spend competence checks, knowledge transfer on completion and conservative save compatibility. Nine new regressions and all prior suites pass; syntax/diff checks pass. Local real-browser attempt was unavailable because the Playwright browser binary is absent; no hardware claim.",
+      "next": "Verify Build 40 Pages deployment, then mark T09 done and begin T10 worker assignment and factory jobs."
+    },
+    {
+      "at": "2026-09-18T00:28:00Z",
+      "task": "T09/T10",
+      "result": "awaiting_deploy",
+      "branch": "work/T10-factory-workers",
+      "commit": "d92659abefec4f4d5501896112177614c0d8336c",
+      "notes": "Verified Build 40 Pages workflow 35285349592 success. Implemented Build 41 named factory professions, single-job assignment, local-input and physical-worker gating, persistent paused batches and safe replacement. Seven new tests plus every existing Node suite pass; syntax and diff checks pass. No hardware claim.",
+      "next": "Begin T11 physical construction materials and repairs.",
+      "deploy_workflow": 35290011983
+    },
+    {
+      "at": "2026-09-18T01:28:00Z",
+      "task": "T11",
+      "result": "awaiting_deploy",
+      "branch": "work/T11-construction-logistics",
+      "commit": "432938487aaac91bda8b336e5e5e7247b31e83cb",
+      "notes": "Build 42 replaces instant construction spending with local site inventories and physical deliveries; builders wait for all materials. Repairs require a named worker and delivered stone. Cancellation, death, destruction and reload preserve or account for goods. Eight new regressions and every prior suite pass.",
+      "next": "Verify Build 42 Pages, then mark T11 done and continue with first eligible task T12."
+    },
+    {
+      "at": "2026-09-21T19:24:00Z",
+      "task": "T11/T12",
+      "result": "awaiting_deploy",
+      "branch": "work/T12-crops-seasons",
+      "commit": "d105282c810c1535aad695684756dbf86571c2e7",
+      "notes": "Confirmed the prior Build 42 verification record and implemented Build 43 differentiated crops. Grain, barley, grapes and olives have configurable base days/yields and crop-specific seasons; terrain, water and skill affect growth/yield. Whole harvests remain local or wait for capacity. Seven new regressions and every prior suite pass; syntax/diff checks pass. No hardware claim.",
+      "next": "Verify Build 43 Pages, mark T12 done, then begin T13 persistent livestock."
+    },
+    {
+      "at": "2026-09-21T20:02:34Z",
+      "task": "T12/T13",
+      "result": "in_progress",
+      "branch": "work/T13-persistent-livestock",
+      "notes": "Confirmed Build 43 deployment: Pages workflow 35643713647 succeeded for d105282. Acquired T13 lease on unchanged main 094147a.",
+      "next": "Implement persistent animal IDs, pens, named workers, local forage and animal-dependent products; run regressions and publish only if coherent."
+    },
+    {
+      "at": "2026-09-21T20:24:00Z",
+      "task": "T13",
+      "result": "awaiting_deploy",
+      "branch": "work/T13-persistent-livestock",
+      "commit": "08ad3a868a815395fdc280cfd8646a45462739a9",
+      "notes": "Build 44 adds buildable pens, persistent animal-to-pen IDs, named livestock workers, local forage consumption and local milk output. Production requires live owned sheep, a present worker, forage and output capacity. Seven new livestock regressions and all prior Node suites pass; JavaScript syntax and diff checks pass. Lease released after fast-forward publication.",
+      "next": "Verify Build 44 Pages; if successful mark T13 done and begin T14 catalog and recipes."
+    },
+    {
+      "at": "2026-09-21T20:26:00Z",
+      "task": "T13",
+      "result": "done",
+      "branch": "work/T13-persistent-livestock",
+      "commit": "08ad3a868a815395fdc280cfd8646a45462739a9",
+      "notes": "GitHub Pages workflow 35649931839 succeeded for the runtime Build 44 commit. T13 acceptance complete; no browser or hardware claim added.",
+      "next": "Acquire a fresh lease and implement T14 catalog goods and recipes."
+    },
+    {
+      "at": "2026-09-21T21:12:00Z",
+      "task": "T14",
+      "result": "awaiting_deploy",
+      "branch": "work/T14-goods-recipes",
+      "commit": "6c3728107af9b6b338df612c33402e0da36ae1ed",
+      "notes": "Build 45 introduces the authoritative goods catalog with configurable volume and the physical barley → barley flour → barley bread chain. Local input, local capacity, persistent batches and conservative legacy-batch loading are enforced. Nine new regressions and all prior suites pass; syntax/diff checks pass. No browser or hardware claim.",
+      "next": "Verify Pages workflow 35655701076; if successful mark T14 done and begin T15 local markets."
+    },
+    {
+      "at": "2026-09-21T21:13:00Z",
+      "task": "T14",
+      "result": "done",
+      "branch": "work/T14-goods-recipes",
+      "commit": "6c3728107af9b6b338df612c33402e0da36ae1ed",
+      "notes": "GitHub Pages workflow 35655701076 succeeded. T14 acceptance complete; browser and hardware checks were not claimed.",
+      "next": "T15 local markets, money and stock/demand-based local prices."
+    },
+    {
+      "at": "2026-09-21T22:00:00Z",
+      "task": "T15",
+      "result": "awaiting_deploy",
+      "branch": "work/T15-local-markets",
+      "commit": "e18b21fdcbfe74e2763db15d5fac1752d454dddb",
+      "notes": "Build 46 adds persistent local markets with market IDs, local stock, liquidity, per-good demand, stock-sensitive prices and carrier-based atomic trades. Six new market regressions and all 51 reported Node tests/subtests pass; JavaScript syntax and diff checks pass. Browser and hardware are not claimed.",
+      "next": "Verify Build 46 Pages deployment; if successful mark T15 done and begin T16 touch trade confirmation UI."
+    },
+    {
+      "at": "2026-09-21T22:03:00Z",
+      "task": "T15",
+      "result": "done",
+      "branch": "work/T15-local-markets",
+      "commit": "e18b21fdcbfe74e2763db15d5fac1752d454dddb",
+      "notes": "GitHub Pages workflows 35661144979 and 35661209538 completed successfully for Build 46 and its state commit. T15 acceptance complete; no browser or hardware claim added.",
+      "next": "T16 touch trade view with explicit quantities, balances and confirmation."
+    },
+    {
+      "at": "2026-09-21T23:15:00Z",
+      "task": "T16",
+      "result": "awaiting_deploy",
+      "branch": "work/T16-touch-trade",
+      "commit": "9d2b097acc974d76ecd986c8dcba204da7cef727",
+      "notes": "Build 47 adds a touch-sized trade dialog with explicit trader/market/good/quantity selection, pre-confirmation price and balance preview, atomic receipt reuse for double taps, and cargo-only sales that do not touch equipment or reservations. Four new regressions and all 55 Node tests/subtests pass; JavaScript syntax passes. Browser and hardware are not claimed.",
+      "next": "Verify Build 47 Pages deployment; if successful mark T16 done and begin T17 physical caravans."
+    },
+    {
+      "at": "2026-09-22T00:25:00Z",
+      "task": "T16/T17",
+      "result": "awaiting_deploy",
+      "branch": "work/T17-physical-caravans",
+      "commit": "cc5a29c68a9571011ab3949992c6bf7e42838920",
+      "notes": "Confirmed Build 47 Pages workflow 35666289455 and Build 48 workflow 35670866742 succeeded. Build 48 adds persistent physical caravan journeys: market arrival before atomic trade, actual return, capacity/path checks, threat pause, safe cancellation, market removal, death cargo drop and save/resume without replay. Seven new caravan regressions and all 62 Node tests/subtests pass; JavaScript syntax and diff checks pass. Browser and hardware are not claimed.",
+      "next": "Begin T18 neutral settlements and economy."
+    },
+    {
+      "at": "2026-09-22T01:16:00Z",
+      "task": "T18",
+      "result": "awaiting_deploy",
+      "branch": "work/T18-neutral-settlements",
+      "commit": "6abfe8e94a64597b5b211097addebfed9a804852",
+      "notes": "Build 49 adds two persistent neutral settlements with separate faction ownership, people, local stores and markets. Production, meals and demand use living population. Player and neutral logistics/production ownership boundaries are enforced. Seven dedicated regressions and all 69 Node tests pass; syntax and diff checks pass.",
+      "next": "Verify Build 49 Pages deployment. If successful mark T18 done, then begin T19 loyalty, influence and diplomacy."
+    },
+    {
+      "at": "2026-09-22T02:02:00Z",
+      "task": "T18/T19",
+      "result": "in_progress",
+      "branch": "work/T19-politics",
+      "notes": "Confirmed the live GitHub Pages site serves Build 49; completed T18 and acquired the T19 lease.",
+      "next": "Implement loyalty, resistance, influence and diplomatic relations with visible effects and persistent ownership-safe transitions."
+    },
+    {
+      "at": "2026-09-22T02:08:00Z",
+      "task": "T19",
+      "result": "awaiting_deploy",
+      "branch": "work/T19-politics",
+      "commit": "ae139166ccad83644958679fc7a4291b5f08eff5",
+      "notes": "Build 50 adds visible loyalty, resistance, influence and exclusive diplomatic states. Idempotent gifts/pressure affect relations; friendly/allied prices improve and hostile markets refuse trade. IDs, ownership and goods remain unchanged through transitions. Seven new tests and all 76 Node tests pass.",
+      "next": "Verify Build 50 Pages deployment; if successful mark T19 done. T20 military objectives is independently eligible from T18 and may proceed after fresh lease."
+    },
+    {
+      "at": "2026-09-22T02:09:00Z",
+      "task": "T19",
+      "result": "done",
+      "branch": "work/T19-politics",
+      "commit": "ae139166ccad83644958679fc7a4291b5f08eff5",
+      "notes": "Live GitHub Pages returned Build 50. T19 acceptance completed; browser gameplay and physical hardware remain unclaimed.",
+      "next": "T20 hostile camps, raiders, victory and defeat accounting."
+    },
+    {
+      "at": "2026-09-22T02:10:00Z",
+      "task": "T20",
+      "result": "in_progress",
+      "branch": "work/T20-war-endgame",
+      "notes": "Acquired T20 lease on Build 50 main.",
+      "next": "Implement persistent hostile camps and ownership-correct victory/defeat with saved terminal state."
+    },
+    {
+      "at": "2026-09-22T02:15:00Z",
+      "task": "T20",
+      "result": "awaiting_deploy",
+      "branch": "work/T20-war-endgame",
+      "commit": "025bd1a878fc8376d672354133aadabe9ae462c5",
+      "notes": "Build 51 adds three persistent hostile camps and camp-origin raids. Victory requires no living camp and no living raider. Defeat counts only living player people in any location and player deposits; neutral entities cannot mask defeat. Terminal outcome pauses and saves.",
+      "next": "Verify Build 51 Pages; if successful mark T20 done, then begin T21 groups, idle selection and minimap."
+    },
+    {
+      "at": "2026-09-22T02:16:00Z",
+      "task": "T20",
+      "result": "done",
+      "branch": "work/T20-war-endgame",
+      "commit": "025bd1a878fc8376d672354133aadabe9ae462c5",
+      "notes": "Live GitHub Pages returned Build 51. T20 acceptance complete; browser gameplay and physical hardware remain unclaimed.",
+      "next": "T21 persistent groups, idle selection and navigable minimap."
+    },
+    {
+      "at": "2026-09-22T02:20:00Z",
+      "task": "T21",
+      "result": "in_progress",
+      "branch": "work/T21-groups-minimap",
+      "notes": "Acquired T21 lease on deployed Build 51 main.",
+      "next": "Implement persistent ID groups, touch idle selection and navigable minimap with gesture guards."
+    },
+    {
+      "at": "2026-09-22T02:32:00Z",
+      "task": "T21",
+      "result": "awaiting_deploy",
+      "branch": "work/T21-groups-minimap",
+      "commit": "8e2c69a9e0ab588a4cfd04d300eb6534fd45b31a",
+      "notes": "Build 52 adds three persistent ID-based control groups, next/all idle touch selection and a synthetic navigable minimap. Group recall, double-recall camera centering and minimap gestures preserve selection/order boundaries. Eight dedicated regressions and all 91 Node tests pass; syntax and diff checks pass. Lease released.",
+      "next": "Verify Build 52 Pages deployment; if successful mark T21 done and begin T22 streaming and simulation budgets."
+    },
+    {
+      "at": "2026-09-22T02:34:00Z",
+      "task": "T21",
+      "result": "done",
+      "branch": "work/T21-groups-minimap",
+      "commit": "8e2c69a9e0ab588a4cfd04d300eb6534fd45b31a",
+      "notes": "Live GitHub Pages returned Build 52. T21 acceptance complete; browser gameplay and physical hardware remain unclaimed.",
+      "next": "T22 world streaming, bounded caches and simulation/pathfinding budgets."
+    },
+    {
+      "at": "2026-09-22T03:08:00Z",
+      "task": "T22",
+      "result": "awaiting_deploy",
+      "branch": "work/T22-streaming",
+      "commit": "ca4e7574a0fdb1a699eaf1b1c2ea40e2e75a2bf4",
+      "notes": "Build 53 adds bounded LRU terrain chunks, view-limited rendering, pinned work-target chunks and a configurable measured pathfinding expansion budget. Offscreen simulation remains authoritative; consumed resource amounts and active tasks persist. Seven dedicated tests and all 98 Node tests pass. Lease released.",
+      "next": "Verify Build 53 Pages deployment; if successful mark T22 done. T23 asset integration is independently eligible."
+    },
+    {
+      "at": "2026-09-22T03:10:00Z",
+      "task": "T22",
+      "result": "done",
+      "branch": "work/T22-streaming",
+      "commit": "ca4e7574a0fdb1a699eaf1b1c2ea40e2e75a2bf4",
+      "notes": "Live GitHub Pages returned Build 53. T22 acceptance complete; browser gameplay and physical hardware remain unclaimed.",
+      "next": "T23 inventory and integrate approved P16 assets from the designated Drive folder."
+    },
+    {
+      "at": "2026-09-22T05:59:00Z",
+      "task": "T23",
+      "result": "done",
+      "branch": "work/T23-approved-assets",
+      "commit": "e5a906389bf53d29a386f35267768506e836687a",
+      "notes": "Build 54 inventories the approved Drive folders and integrates only the verified native RGBA windmill and selection marker. Oversized overview-scale images were excluded; procedural P16 terrain remains unchanged. Four dedicated tests and all 102 Node tests pass. Live Pages returned Build 54; expired lease recovered and released.",
+      "next": "T24 real-browser phone/tablet UI validation across portrait and landscape."
+    },
+    {
+      "at": "2026-09-22T06:23:00Z",
+      "task": "T24",
+      "result": "blocked_external",
+      "branch": "work/T24-ui-qa",
+      "commit": "3d1d4346bff4678d5a270e0c8d5d23b2f109db16",
+      "notes": "BUILD 56 fixed a severe streamed-renderer fallback storm and completed the responsive Diplomacy layout. All 105 Node tests pass; live Pages and real Chrome 1363x936 verify panels, overflow and an error-free app console. Fixed browser viewport and browser security policy prevent the required phone/tablet/short-landscape screenshot matrix; no physical hardware is attached. Lease released.",
+      "next": "Provide an attached phone/tablet or an approved responsive browser/emulator surface to finish T24. T25 remains dependent and then requires physical hardware measurements; no independent task remains."
+    }
+  ],
+  "schema_version": 1,
+  "tasks": [
+    {
+      "acceptance": [
+        "Identificare commit/build correnti e leggere handoff e codice.",
+        "Eseguire le quattro suite esistenti e registrare esiti e limiti."
+      ],
+      "blocker": null,
+      "branch": null,
+      "commit": "0b94e2eb4323e4195e1595da1a715052c8bd4822",
+      "depends_on": [],
+      "evidence": [
+        "17 simulation regressions + controls, debug and selection-scroll: PASS; DOM/canvas simulati, nessuna certificazione hardware."
+      ],
+      "id": "T00",
+      "last_attempt_at": "2026-09-17T07:39:07.903363+02:00",
+      "remaining": [],
+      "status": "done",
+      "title": "Verifica della base pubblicata"
+    },
+    {
+      "acceptance": [
+        "Avviare il gioco in un browser disponibile e verificare loop, errori console, selezione, movimento e ripresa.",
+        "Provare i comandi attraverso eventi UI e percorsi raggiungibili, oltre ai test con DOM simulato; registrare browser e viewport."
+      ],
+      "blocker": null,
+      "branch": null,
+      "commit": "1a47a2a6cecfea56323df9e1ebf08a2edba6f58a",
+      "depends_on": [
+        "T00"
+      ],
+      "evidence": [
+        "Cloud Chrome, viewport 1363x936, Build 37: UI selection Neria; Sposta + canvas click; physical displacement observed in screenshots; pause/resume and calendar advancement; UI save/load restored same person in pause. No app-origin console errors; extension metadata errors excluded. This is desktop browser, not touch/hardware certification."
+      ],
+      "id": "T01",
+      "last_attempt_at": "2026-09-17T17:17:38.991Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Avvio reale e regressioni di movimento"
+    },
+    {
+      "acceptance": [
+        "Definire record persistenti con ID, collocazione, occupazione, salute, skill e carico senza duplicare abitanti.",
+        "Migrare il salvataggio corrente conservando originale; verificare conteggio persone e round trip."
+      ],
+      "blocker": null,
+      "branch": "work/T02-persistent-people",
+      "commit": "8c8d408ab2cf232acd07d1877d64beea19302e43",
+      "depends_on": [
+        "T00"
+      ],
+      "evidence": [
+        "6 persistent-person regression cases PASS; 17 simulation cases PASS; controls, debug, selection-scroll PASS. Tested using current remote renderer sources; Node VM/DOM only.",
+        "Build 33 commit 8c8d408ab2cf232acd07d1877d64beea19302e43; JavaScript syntax checks PASS.",
+        "Pages workflow 35213852536 in_progress at 2026-09-17T11:05:51Z; not counted as deployed.",
+        "GitHub Pages workflow 35213852536 completed successfully at 2026-09-17T11:05:40Z."
+      ],
+      "id": "T02",
+      "last_attempt_at": "2026-09-17T12:00:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Modello unico degli abitanti e migrazione"
+    },
+    {
+      "acceptance": [
+        "Ingresso e uscita conservano stesso ID, skill, salute ed eventuale carico senza duplicazioni.",
+        "Gestire villaggio pieno, distrutto e uscita senza terreno libero con esito visibile."
+      ],
+      "blocker": null,
+      "branch": "work/T03-residents",
+      "commit": "2f3c15a249c7cccaf69eaae6e9dea679f8696817",
+      "depends_on": [
+        "T02"
+      ],
+      "evidence": [
+        "7 resident regressions PASS; 6 persistent-person regressions PASS; 17 simulation regressions PASS; controls, debug and selection-scroll PASS; JavaScript syntax checks PASS. Node VM/DOM only.",
+        "Build 34 commit 2f3c15a249c7cccaf69eaae6e9dea679f8696817; Pages workflow 35219603988 queued and not counted as deployed.",
+        "Successor Pages workflow 35219631851 succeeded on 94d2678, containing Build 34."
+      ],
+      "id": "T03",
+      "last_attempt_at": "2026-09-17T12:12:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Residenti e ingresso/uscita dal villaggio"
+    },
+    {
+      "acceptance": [
+        "Mostrare residenti, occupati, disponibili e mobilitati con conteggi coerenti.",
+        "Consentire scelta nominale e mobilitazione come trasferimento di persone, non generazione di copie."
+      ],
+      "blocker": null,
+      "branch": "work/T04-community",
+      "commit": "3915c93b4dbd7a13a3d96174e1e797eb5145257e",
+      "depends_on": [
+        "T03"
+      ],
+      "evidence": [
+        "9 community regressions passed, covering identity, counts, blocked exits, duplicate taps, old saves and simulated dialog/background events. All prior suites passed. Browser/hardware checks remain separate.",
+        "Pages workflow 35221632354 success."
+      ],
+      "id": "T04",
+      "last_attempt_at": "2026-09-17T12:30:30.560803+00:00",
+      "remaining": [],
+      "status": "done",
+      "title": "Pannello comunità e mobilitazione"
+    },
+    {
+      "acceptance": [
+        "Separare capienza, popolazione effettiva e consumi; sostituire la crescita a solo timer con regole esplicite configurabili.",
+        "Verificare carenza cibo, limite alloggi, nuova popolazione e salvataggi; documentare parametri provvisori."
+      ],
+      "blocker": null,
+      "branch": "work/T05-population",
+      "commit": "48dc00421e21cff035771226240b2de32fdc543f",
+      "depends_on": [
+        "T04"
+      ],
+      "evidence": [
+        "9 population regressions PASS; 9 community, 7 residents, 6 people, 17 simulation plus controls/debug/selection-scroll PASS. Syntax and whitespace checks PASS. Node VM/DOM only.",
+        "Pages workflow 35222138245 completed successfully; checked 2026-09-17T17:05Z."
+      ],
+      "id": "T05",
+      "last_attempt_at": "2026-09-17T12:35:54.980Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Popolazione, alloggi e consumi"
+    },
+    {
+      "acceptance": [
+        "Separare equipaggiamento, inventario trasportato e scorte; definire ID oggetto e trasferimenti atomici.",
+        "Documentare slot minimi come scelta provvisoria, non requisito già approvato; testare equipaggia/rimuovi/reload senza duplicare oggetti."
+      ],
+      "blocker": null,
+      "branch": "work/T06-equipment",
+      "commit": "1a47a2a6cecfea56323df9e1ebf08a2edba6f58a",
+      "depends_on": [
+        "T02"
+      ],
+      "evidence": [
+        "11 equipment cases PASS; all previous Node VM/DOM suites PASS; JavaScript syntax and git diff --check PASS. No browser/hardware certification.",
+        "Pages workflow 35250987612 success; Build 37 opened in cloud Chrome."
+      ],
+      "id": "T06",
+      "last_attempt_at": "2026-09-17T17:08:41.879Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Dati individuali di equipaggiamento"
+    },
+    {
+      "acceptance": [
+        "Vista dedicata dello stesso ID selezionato con figura, equipaggiamento e statistiche leggibili su telefono.",
+        "Cambio selezione, residente nascosto e chiusura pannello non cambiano il proprietario dei dati."
+      ],
+      "blocker": null,
+      "branch": "work/T07-paperdoll",
+      "commit": "37bb617e782328fc34cb5e65867161b14abb5af0",
+      "depends_on": [
+        "T06"
+      ],
+      "evidence": [
+        "8 character regressions PASS; 11 equipment and all previous Node VM/DOM suites PASS; syntax and diff checks PASS.",
+        "Pages workflow 35251855527 success (Build 38); fixture follow-up workflow 35252132295 success. Real cloud Chrome: open Character, remove/equip tunic, switch Neria/Aulo without ownership transfer, deposit/re-equip at local base, load and reopen. Real iframe layout 390x740, 320x640 and 740x390: dialog scrollWidth==clientWidth (335,265,523); 320px transfer controls work. No app-origin console errors. Not hardware/touch certification; figure is existing P16 portrait, no item sprite layers."
+      ],
+      "id": "T07",
+      "last_attempt_at": "2026-09-17T17:24:22.742Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Vista Personaggio e paperdoll"
+    },
+    {
+      "acceptance": [
+        "Finestra distinta dal paperdoll con skill, livello e progresso del medesimo ID.",
+        "Verificare progressione attraverso uso e persistenza; cap/lock non definiti restano parametri provvisori documentati."
+      ],
+      "blocker": null,
+      "branch": "work/T08-skills",
+      "commit": "adf3d7fa75f038bbb188d51514e766239504ae27",
+      "depends_on": [
+        "T07"
+      ],
+      "evidence": [
+        "8 Skill regressions PASS: separate dialog, identity picker, real gain() progression and overflow, multi-level gain, invalid gains, save/reload, resident identity, pause/background and configurable cap. All prior Node VM/DOM suites PASS; syntax and diff checks PASS.",
+        "Build 39 Pages workflow 35256623727 succeeded. Real cloud Chrome: separate Skill dialog opened for the selected persistent ID, Character stayed closed, 8 skill rows and XP progress were visible, and the game paused while open."
+      ],
+      "id": "T08",
+      "last_attempt_at": "2026-09-17T23:06:31Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Vista Skill separata"
+    },
+    {
+      "acceptance": [
+        "Tenere sapere edilizio separato dalle skill; definire sblocchi configurabili.",
+        "Cantieri validano competenza e mostrano requisiti mancanti; sapere sopravvive a migrazione/reload."
+      ],
+      "blocker": null,
+      "branch": "work/T09-construction-knowledge",
+      "commit": "57f149e0fff0882eda354a825d6fa713c5a280f8",
+      "depends_on": [
+        "T08"
+      ],
+      "evidence": [
+        "9 construction-knowledge regressions PASS: separation from skills, personal thresholds, tribal defaults/transfer, missing-requirement rejection before spending, assignment revalidation, identity, save/reload, legacy v5 migration and distinct knowledge UI. All prior suites PASS; JavaScript syntax and diff checks PASS.",
+        "Build 40 prepared on work/T09-construction-knowledge; Pages deployment pending and not counted as successful.",
+        "Pages workflow 35285349592 completed successfully for main commit 1719df0b1516161679ec5af378df7a4ad253f7e4."
+      ],
+      "id": "T09",
+      "last_attempt_at": "2026-09-17T23:06:31Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Conoscenze edilizie personali e tribali"
+    },
+    {
+      "acceptance": [
+        "Assegnare persone a produzione: una persona non svolge due lavori contemporanei.",
+        "Produzione dipende da lavoratori e input locali; interruzione e sostituzione non duplicano batch."
+      ],
+      "blocker": null,
+      "branch": "work/T10-factory-workers",
+      "commit": "d92659abefec4f4d5501896112177614c0d8336c",
+      "depends_on": [
+        "T04",
+        "T08"
+      ],
+      "evidence": [
+        "7 factory-worker regressions PASS: no worker/no batch, named assignment, single job, local input, interruption, replacement exactly once and reload.",
+        "All existing Node VM/DOM suites PASS; JavaScript syntax and git diff checks PASS.",
+        "Build 41 on main; Pages workflow 35290011983 completed successfully."
+      ],
+      "id": "T10",
+      "last_attempt_at": "2026-09-18T00:28:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Lavoratori e mestieri nelle fabbriche"
+    },
+    {
+      "acceptance": [
+        "Portare materiali al cantiere fisicamente prima dell’utilizzo; prenotare non equivale a consumare.",
+        "Riparazioni richiedono lavoro/materiali; annullamento, distruzione, morte e reload conservano o contabilizzano tutte le merci."
+      ],
+      "blocker": null,
+      "branch": "work/T11-construction-logistics",
+      "commit": "432938487aaac91bda8b336e5e5e7247b31e83cb",
+      "depends_on": [
+        "T09",
+        "T10"
+      ],
+      "evidence": [
+        "8 construction logistics regressions PASS: no spend at placement, physical delivery, gated progress, cancellation, carrier death, site destruction, material repair and reload.",
+        "All existing Node VM/DOM suites PASS; JavaScript syntax and git diff checks PASS. Browser/hardware not claimed."
+      ],
+      "id": "T11",
+      "last_attempt_at": "2026-09-18T01:28:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Materiali ai cantieri e riparazioni"
+    },
+    {
+      "acceptance": [
+        "Grano, orzo, vite e olivo producono beni distinti con tempi e rese configurabili.",
+        "Il raccolto intero resta locale; terreno, acqua e stagione influiscono senza accrediti globali o eccedenze perdute."
+      ],
+      "blocker": null,
+      "branch": "work/T12-crops-seasons",
+      "commit": "d105282c810c1535aad695684756dbf86571c2e7",
+      "depends_on": [
+        "T10"
+      ],
+      "evidence": [
+        "7 crop/season regressions PASS: catalog parameters, four distinct local goods, full-inventory blocking, terrain/water/season effects, crop-change guard, reload and legacy Grano migration.",
+        "All prior Node VM/DOM suites PASS; JavaScript syntax and git diff checks PASS. Browser/hardware not claimed.",
+        "GitHub Pages workflow 35643713647 completed successfully for Build 43 commit d105282c810c1535aad695684756dbf86571c2e7."
+      ],
+      "id": "T12",
+      "last_attempt_at": "2026-09-21T19:24:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Colture differenziate e stagioni"
+    },
+    {
+      "acceptance": [
+        "Collegare recinti ad animali posseduti, lavoratori e foraggio, con quantità/produzione verificabili.",
+        "Salvare ID animali e prodotti; niente latte/uova generati dal solo numero di operai senza animali."
+      ],
+      "blocker": null,
+      "branch": "work/T13-persistent-livestock",
+      "commit": "08ad3a868a815395fdc280cfd8646a45462739a9",
+      "depends_on": [
+        "T12"
+      ],
+      "evidence": [
+        "7 livestock regressions PASS: worker-only/no animal, animal/no worker, exact forage and milk accounting, pen capacity/single ownership, full output, save/reload identity and dead-animal pruning.",
+        "All prior Node VM/DOM suites PASS; JavaScript syntax and git diff checks PASS. Browser/hardware not claimed.",
+        "GitHub Pages workflow 35649931839 completed successfully for Build 44 commit 08ad3a868a815395fdc280cfd8646a45462739a9."
+      ],
+      "id": "T13",
+      "last_attempt_at": "2026-09-21T20:02:34Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Allevamento con animali persistenti"
+    },
+    {
+      "acceptance": [
+        "Definire catalogo coerente per input/output, ingombri e prodotti richiesti dalle colture/animali.",
+        "Testare ogni nuova ricetta con input assente, output pieno, carico interrotto e reload."
+      ],
+      "blocker": null,
+      "branch": "work/T14-goods-recipes",
+      "commit": "6c3728107af9b6b338df612c33402e0da36ae1ed",
+      "depends_on": [
+        "T11",
+        "T13"
+      ],
+      "evidence": [
+        "9 T14 regressions PASS: catalog coverage plus missing input, full output, interrupted load and reload for both new barley recipes.",
+        "All prior Node VM/DOM suites PASS (45 test files/subtests reported by node:test plus existing custom suites); JavaScript syntax and git diff checks PASS. Browser/hardware not claimed.",
+        "GitHub Pages workflow 35655701076 completed successfully for Build 45 commit 6c3728107af9b6b338df612c33402e0da36ae1ed."
+      ],
+      "id": "T14",
+      "last_attempt_at": "2026-09-21T21:12:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Catalogo merci e altre ricette"
+    },
+    {
+      "acceptance": [
+        "Mercati con ID, merci, denaro e prezzi locali legati a scorte/domanda documentate.",
+        "Vendite e acquisti non leggono merci remote della Casa comune; liquidità e disponibilità sono vincoli effettivi."
+      ],
+      "blocker": null,
+      "branch": "work/T15-local-markets",
+      "commit": "e18b21fdcbfe74e2763db15d5fac1752d454dddb",
+      "depends_on": [
+        "T14"
+      ],
+      "evidence": [
+        "6 T15 market regressions PASS: local ID/stock/liquidity, stock-sensitive prices, remote common-house isolation, hard stock/money/capacity constraints, idempotent transaction IDs and save/reload.",
+        "All 51 reported Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser/hardware not claimed.",
+        "GitHub Pages workflow 35661144979 completed successfully for Build 46 commit e18b21fdcbfe74e2763db15d5fac1752d454dddb."
+      ],
+      "id": "T15",
+      "last_attempt_at": "2026-09-21T22:00:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Mercati locali e prezzi"
+    },
+    {
+      "acceptance": [
+        "Mostrare inventario personale/carovana, mercato, quantità e saldo prima della conferma.",
+        "Conferma idempotente: doppio tap/reload non duplica; equipaggiamento e riserve non venduti implicitamente."
+      ],
+      "blocker": null,
+      "branch": "work/T16-touch-trade",
+      "commit": "9d2b097acc974d76ecd986c8dcba204da7cef727",
+      "depends_on": [
+        "T15",
+        "T06"
+      ],
+      "evidence": [
+        "4 new touch-trade regressions PASS: previewed quantities/prices/balances, idempotent double confirmation, cargo-only sales, pause/background lifecycle.",
+        "All 55 Node tests/subtests PASS; JavaScript syntax PASS. Browser and physical hardware not claimed."
+      ],
+      "id": "T16",
+      "last_attempt_at": "2026-09-21T23:15:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Scambio touch e carico commerciale"
+    },
+    {
+      "acceptance": [
+        "Mercante e merci raggiungono davvero il mercato e tornano; percorso raggiungibile e capacità verificati.",
+        "Stop, minaccia, morte, mercato rimosso e ripresa app gestiti senza doppia spesa."
+      ],
+      "blocker": null,
+      "branch": "work/T17-physical-caravans",
+      "commit": "cc5a29c68a9571011ab3949992c6bf7e42838920",
+      "depends_on": [
+        "T16"
+      ],
+      "evidence": [
+        "7 T17 caravan regressions PASS: physical market/return journey, preflight capacity and route, stop, threat pause/resume, removed market, death cargo recovery, save/resume and idempotent receipt.",
+        "All 62 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "GitHub Pages workflow 35670866742 completed successfully for Build 48 commit cc5a29c68a9571011ab3949992c6bf7e42838920."
+      ],
+      "id": "T17",
+      "last_attempt_at": "2026-09-22T00:03:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Carovane e rotte fisiche"
+    },
+    {
+      "acceptance": [
+        "Neutrali con proprietari, popolazione e scorte separati; attività AI verificabili e persistenti.",
+        "Consumi e domanda dipendono da popolazione reale; impedire accesso a inventari non autorizzati."
+      ],
+      "blocker": null,
+      "branch": "work/T18-neutral-settlements",
+      "commit": "6abfe8e94a64597b5b211097addebfed9a804852",
+      "depends_on": [
+        "T05",
+        "T15"
+      ],
+      "evidence": [
+        "7 T18 neutral-settlement regressions PASS: separate owners/people/stores, population-driven production, meals and demand, authorization boundaries, persistence, and player isolation.",
+        "All 69 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "Build 49 merged to main at commit 6abfe8e94a64597b5b211097addebfed9a804852; GitHub Pages deployment not yet confirmed.",
+        "GitHub Pages live site returned BUILD 49 on 2026-09-22T02:02:00Z."
+      ],
+      "id": "T18",
+      "last_attempt_at": "2026-09-22T01:16:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Insediamenti neutrali ed economia"
+    },
+    {
+      "acceptance": [
+        "Definire e mostrare lealtà/resistenza/influenza e relazioni con effetti osservabili, parametri documentati.",
+        "Transizioni politiche preservano ID, merci e appartenenze; testare persistenza e stati incompatibili."
+      ],
+      "blocker": null,
+      "branch": "work/T19-politics",
+      "commit": "ae139166ccad83644958679fc7a4291b5f08eff5",
+      "depends_on": [
+        "T18"
+      ],
+      "evidence": [
+        "7 T19 politics regressions PASS: values/relations, gift cost and influence, idempotency, shortage/hostility, price/access effects, ownership-safe transitions and persistence/legacy defaults.",
+        "All 76 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "Build 50 merged to main at commit ae139166ccad83644958679fc7a4291b5f08eff5; GitHub Pages deployment not yet confirmed.",
+        "GitHub Pages live site returned BUILD 50 on 2026-09-22T02:09:00Z."
+      ],
+      "id": "T19",
+      "last_attempt_at": "2026-09-22T02:08:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Lealtà, influenza e diplomazia"
+    },
+    {
+      "acceptance": [
+        "Campi ostili, predoni e difese con condizioni di vittoria: nessun campo e nessun nemico rimanente.",
+        "Sconfitta conteggia persone residenti/mobilitate correttamente e depositi; fine partita arresta simulazione e si salva."
+      ],
+      "blocker": null,
+      "branch": "work/T20-war-endgame",
+      "commit": "025bd1a878fc8376d672354133aadabe9ae462c5",
+      "depends_on": [
+        "T11",
+        "T18"
+      ],
+      "evidence": [
+        "7 T20 war/endgame regressions PASS: persistent camps, camp-origin raids, strict victory, resident/mobilized defeat accounting, neutral exclusion, paused saved terminal state and reload.",
+        "All 83 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "Build 51 merged to main at commit 025bd1a878fc8376d672354133aadabe9ae462c5; GitHub Pages deployment not yet confirmed.",
+        "GitHub Pages live site returned BUILD 51 on 2026-09-22T02:16:00Z."
+      ],
+      "id": "T20",
+      "last_attempt_at": "2026-09-22T02:15:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Obiettivi militari e fine partita"
+    },
+    {
+      "acceptance": [
+        "Gruppi persistenti per ID e selezione prossimo/tutti inattivi da touch; richiamo camera.",
+        "Minimappa sintetica e navigabile; selezione MOD/edge-scroll e pinch non impartiscono ordini accidentali."
+      ],
+      "blocker": null,
+      "branch": "work/T21-groups-minimap",
+      "commit": "8e2c69a9e0ab588a4cfd04d300eb6534fd45b31a",
+      "depends_on": [
+        "T04"
+      ],
+      "evidence": [
+        "8 T21 regressions PASS: unique owned group IDs, recall/pruning, double-recall camera, idle selection, persistence, bounded minimap navigation and order isolation.",
+        "All 91 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "Build 52 merged to main at commit 8e2c69a9e0ab588a4cfd04d300eb6534fd45b31a; GitHub Pages deployment not yet confirmed.",
+        "GitHub Pages live site returned BUILD 52 on 2026-09-22T02:34:00Z."
+      ],
+      "id": "T21",
+      "last_attempt_at": "2026-09-22T02:32:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Gruppi, inattivi e minimappa"
+    },
+    {
+      "acceptance": [
+        "Generazione/caricamento per blocchi, cache limitate e pathfinding con budget; conservare risorse consumate fuori vista.",
+        "Lavori, persone residenti e trasporti fuori schermo continuano senza dipendere dal rendering; salvataggio copre snapshot."
+      ],
+      "blocker": null,
+      "branch": "work/T22-streaming",
+      "commit": "ca4e7574a0fdb1a699eaf1b1c2ea40e2e75a2bf4",
+      "depends_on": [
+        "T17",
+        "T20",
+        "T21"
+      ],
+      "evidence": [
+        "7 T22 regressions PASS: deterministic chunks, strict 20-chunk LRU, target pinning, path expansion budget, offscreen work, consumed-resource persistence and task snapshot round trip.",
+        "All 98 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS. Browser and physical hardware not claimed.",
+        "Build 53 merged to main at commit ca4e7574a0fdb1a699eaf1b1c2ea40e2e75a2bf4; GitHub Pages deployment not yet confirmed.",
+        "GitHub Pages live site returned BUILD 53 on 2026-09-22T03:10:00Z."
+      ],
+      "id": "T22",
+      "last_attempt_at": "2026-09-22T03:08:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Streaming del mondo e budget simulazione"
+    },
+    {
+      "acceptance": [
+        "Inventariare Drive Terra Italica/Assets P16 e mappare asset approvati alle entità realmente implementate.",
+        "Verificare trasparenza, scala nativa, P16 e ancoraggi; niente tavole riepilogative usate come sprite o nuovo terreno PNG."
+      ],
+      "blocker": null,
+      "branch": "work/T23-approved-assets",
+      "commit": "e5a906389bf53d29a386f35267768506e836687a",
+      "depends_on": [
+        "T07",
+        "T14",
+        "T20"
+      ],
+      "evidence": [
+        "Drive inventory verified P16 specification, native dimensions and RGBA transparency; oversized v02/overview assets excluded.",
+        "Approved windmill 32x38 and selection marker 16x16 integrated with nearest-neighbor scaling and procedural fallbacks; procedural terrain preserved.",
+        "4 T23 regressions and all 102 Node tests/subtests PASS; JavaScript syntax and git diff checks PASS.",
+        "GitHub Pages live site returned BUILD 54 on 2026-09-22T05:59:00Z. Browser gameplay and physical hardware not claimed."
+      ],
+      "id": "T23",
+      "last_attempt_at": "2026-09-22T05:59:00Z",
+      "remaining": [],
+      "status": "done",
+      "title": "Integrazione degli asset approvati"
+    },
+    {
+      "acceptance": [
+        "Verificare orientazioni, safe area, testo, pannelli, tap sovrapposti e flusso intero senza mouse/tastiera.",
+        "Registrare screenshot e risultati da browser reale/emulazione distinguendoli dai test su dispositivo fisico."
+      ],
+      "blocker": "The available real Chrome session has a fixed 1363x936 viewport. Its security policy rejected a data-URL responsive wrapper, and no phone/tablet emulator or physical device is attached; required portrait/tablet/short-landscape screenshots and touch-only flow cannot be truthfully recorded.",
+      "branch": "work/T24-ui-qa",
+      "commit": "3d1d4346bff4678d5a270e0c8d5d23b2f109db16",
+      "depends_on": [
+        "T01",
+        "T17",
+        "T20",
+        "T21",
+        "T23"
+      ],
+      "evidence": [
+        "BUILD 54 live-browser inspection exposed a streamed-rendering fallback storm; BUILD 55 fixed the ambiguous else binding and added a draw-budget regression test.",
+        "BUILD 56 gives Diplomacy the bounded, scrollable, 44px-target responsive dialog layout used by the other management panels.",
+        "Real Chrome on live BUILD 56 at 1363x936: full page responsive, no document overflow, Character/Skill/Logistics/Trade/Diplomacy dialogs remained inside the viewport with no horizontal overflow, and app-origin console errors were empty.",
+        "All 105 Node tests/subtests PASS, including renderer budget, safe-area, viewport-bounded dialogs and phone-column diplomacy checks. Live GitHub Pages returned BUILD 56. This is browser evidence, not physical hardware evidence."
+      ],
+      "id": "T24",
+      "last_attempt_at": "2026-09-22T06:23:00Z",
+      "remaining": [
+        "Capture and inspect the live game at phone portrait, tablet portrait and short landscape viewports.",
+        "Run the complete flow with touch input only and record the required screenshots."
+      ],
+      "status": "blocked_external",
+      "title": "Collaudo UI telefono e tablet"
+    },
+    {
+      "acceptance": [
+        "Su hardware reale misurare frame mediani/p95, memoria e sessioni prolungate con raccolta, guerra e commercio.",
+        "Verificare blocco schermo, background, riapertura e perdita processo. Se hardware non disponibile: blocked_external, mai done."
+      ],
+      "blocker": null,
+      "branch": null,
+      "commit": null,
+      "depends_on": [
+        "T22",
+        "T24"
+      ],
+      "evidence": [],
+      "id": "T25",
+      "last_attempt_at": null,
+      "remaining": [],
+      "status": "pending",
+      "title": "Collaudo fisico e prestazioni"
+    },
+    {
+      "acceptance": [
+        "Confrontare tutte le accettazioni dell’handoff con evidenze e stato effettivo, risolvere regressioni e verificare ultimo deploy.",
+        "Disattivare il ciclo soltanto a piano completo; se resta un blocco esterno registrarlo e segnalare ciò che serve senza dichiarare finito."
+      ],
+      "blocker": null,
+      "branch": null,
+      "commit": null,
+      "depends_on": [
+        "T19",
+        "T25"
+      ],
+      "evidence": [],
+      "id": "T26",
+      "last_attempt_at": null,
+      "remaining": [],
+      "status": "pending",
+      "title": "Audit finale e chiusura del piano"
+    }
+  ],
+  "timezone": "Europe/Rome",
+  "updated_at": "2026-09-22T06:23:00Z",
+  "latest_manual_update": {
+    "build": 69,
+    "date": "2026-10-02",
+    "scope": "Totem, magazzini collegati, distribuzione interna, artigiani alimentati, quote di trasformazione e carovane di baratto",
+    "validation": "29 suite passate; 352 giorni simulati con tutte le fazioni; controllo visivo browser non eseguito per download Chromium non riuscito",
+    "specification": "docs/SETTLEMENT_ECONOMY.md"
+  }
+}

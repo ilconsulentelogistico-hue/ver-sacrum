@@ -1,0 +1,7 @@
+# Filiera completa del Torchio su mappa 512
+
+Test riproducibile seed 123456, mappa sperimentale 512×512, un campo, magazzino comunitario, mercato e Torchio collegati. Un abitante libero esegue in sequenza i viaggi campo→magazzino→mercato→Torchio; un secondo lavora al Torchio. L’uscita viene divisa in 1 unità comunitaria al magazzino e 1 al mercato, entrambe con trasporto fisico. Le altre persone non partecipano. Il salvataggio è eseguito mentre il lotto è in lavorazione, poi la partita viene ricaricata.
+
+Due casi: 4 uva→2 vino e 4 olive→2 olio. Entrambi passano 2/2 senza perdita/duplicazione: frutto residuo 0 nei quattro edifici, prodotto finale 1+1, carico finale 0, quota dovuta 0. Con aggiornamenti da 0,05 s, la prima merce raggiunge il magazzino al frame 56, il mercato all’84, il Torchio avvia la ricetta al 141, la quota comunitaria arriva al 552 e il prodotto commerciale al 674 (33,7 secondi simulati dalla partenza). Il test isolato richiede circa 3,1 s di tempo reale sulla EC2; non è una misura degli FPS del Redmi Note 10.
+
+La prova iniziale richiedeva una scorta minima manuale di 2 per non riesportare la quota comunitaria. Dopo la tappa `community-wine-oil-reserve`, il test non imposta più quella soglia: vino e olio comunitari restano nel magazzino per impostazione predefinita, e la vendita richiede una scelta esplicita nel collegamento. Gruppo economico mirato: 49/49, zero errori. Suite completa precedente: 343/343.

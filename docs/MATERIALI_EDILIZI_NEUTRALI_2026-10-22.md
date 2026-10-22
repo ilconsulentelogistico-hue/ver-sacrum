@@ -1,0 +1,7 @@
+# Legno e pietra per i villaggi neutrali
+
+I villaggi agricoli possono preparare le scorte richieste dal forno (16 legni e 16 pietre) facendo raccogliere un proprio abitante libero da nodi naturali finiti e raggiungibili. La stessa persona porta il carico nel magazzino di appartenenza; il nodo perde esattamente quanto appare fra borsa ed edificio. L’incarico non crea risorse e viene sospeso quando il cibo complessivo scende sotto dieci razioni per persona più la riserva di accoglienza. Quando il cibo è abbondante, la raccolta alimentare continua soltanto fino al deposito del carico corrente, poi lascia spazio ai materiali.
+
+Mentre mancano legno o pietra, i trasferimenti automatici di altri beni conservano 48 posti nel magazzino neutrale; le merci non trasferite restano nei campi, nei mulini o nei mercati. La riserva viene tolta quando entrambi i materiali raggiungono il costo. Questo evita che l’orzo riempia tutto il magazzino prima dell’arrivo della pietra. Il terzo villaggio, senza la filiera del forno, non cambia comportamento.
+
+Fixture seed 123456, 200 giorni senza incursioni/fauna: entrambi i villaggi agricoli hanno quattro persone, salute 100 e almeno 16 legni + 16 pietre nel magazzino. Il totale globale di legno e pietra (nodi + edifici + borse) rimane identico prima/dopo; salvataggio e reload conservano le scorte. I materiali sono preparati, non ancora consumati dal cantiere: quello è il prossimo passo.
