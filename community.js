@@ -14,7 +14,16 @@
     // Exit must succeed before changing duty; a blocked exit changes nothing.
     if (u.location.kind === 'resident' && !this.releaseResident(id)) return false;
     u.mobilized = true;
-    this.message(`${u.name} è mobilitato. Assegna gli ordini dalla mappa.`);
+    this.message(`${u.name} è arruolato: può difendere, presidiare e assaltare. Assegna gli ordini dalla mappa.`);
+    return true;
+  };
+  // A resident leaves the district as a civilian: on the map, not enlisted.
+  Game.prototype.exitHomePerson = function (id) {
+    const u = this.units.find(u => u.id === id && u.owner === 0 && u.health > 0);
+    if (!u || u.location.kind !== 'resident' || u.task) return false;
+    if (!this.releaseResident(id)) return false;
+    u.mobilized = false;
+    this.message(`${u.name} esce dal Distretto ed è sulla mappa. Usa «Arruola» solo per difendere o assaltare.`);
     return true;
   };
   Game.prototype.demobilizePerson = function (id) {
@@ -24,7 +33,7 @@
     u.mobilized = false;
     delete u.rallyAutoMobilizedRaidLevel;
     delete u.rallyHomeId;
-    this.message(`${u.name} è disponibile. Usa Entra per farlo rientrare in un Distretto.`);
+    this.message(`${u.name} è congedato e resta sulla mappa. Usa «Vai a vivere» per farlo rientrare in un Distretto.`);
     return true;
   };
   const enterResident = Game.prototype.enterResident;
@@ -45,14 +54,25 @@
     this.camera.x = u.x*TILE; this.camera.y = u.y*TILE;
     this.updateUI(); return true;
   };
+  Game.prototype.communityActionsHTML = function (u) {
+    const button = (action, label, disabled = false) => `<button type="button" data-community="${action}" data-id="${u.id}"${disabled ? ' disabled' : ''}>${label}</button>`;
+    const parts = [button('select', 'Seleziona')];
+    if (u.mobilized) parts.push(button('demobilize', 'Congeda'));
+    else if (u.task) parts.push(button('mobilize', 'Al lavoro', true));
+    else {
+      if (u.location.kind === 'resident') parts.push(button('exit', 'Fai uscire'));
+      parts.push(button('mobilize', 'Arruola'));
+    }
+    return parts.join('');
+  };
   Game.prototype.renderCommunity = function () {
     const c = this.communityCounts(this.contextPeople());
-    $('#communitySummary').textContent = `${c.total} persone · ${c.residents} residenti nei Distretti · ${c.occupied} occupati · ${c.available} disponibili · ${c.mobilized} mobilitati`;
+    $('#communitySummary').textContent = `${c.total} persone · ${c.residents} residenti nei Distretti · ${c.occupied} occupati · ${c.available} disponibili · ${c.mobilized} arruolati`;
     $('#communityRoster').innerHTML = this.contextPeople().map(u => {
       const home = this.buildings.find(b => b.id === u.location.settlementId);
       const place = home ? `Distretto (${Math.floor(home.x)}, ${Math.floor(home.y)})` : 'Sulla mappa';
-      const duty = u.mobilized ? 'Mobilitato' : u.task ? 'Occupato' : 'Disponibile';
-      return `<article><div><b>${escape(u.name)}</b><p>${escape(this.personOriginLabel(u))} · ${place} · ${duty}<br>${escape(this.unitStatus(u))} · Salute ${Math.ceil(u.health)}${u.unfedDays?` · Senza razione ${u.unfedDays} giorni`:''} · Carico ${u.inventory.amount}/${u.inventory.cap}</p></div><div class="community-actions"><button type="button" data-community="select" data-id="${u.id}">Seleziona</button><button type="button" data-community="${u.mobilized?'demobilize':'mobilize'}" data-id="${u.id}" ${!u.mobilized&&u.task?'disabled':''}>${u.mobilized?'Smobilita':u.task?'Al lavoro':'Mobilita'}</button></div></article>`;
+      const duty = u.mobilized ? 'Arruolato' : u.task ? 'Occupato' : 'Disponibile';
+      return `<article><div><b>${escape(u.name)}</b><p>${escape(this.personOriginLabel(u))} · ${place} · ${duty}<br>${escape(this.unitStatus(u))} · Salute ${Math.ceil(u.health)}${u.unfedDays?` · Senza razione ${u.unfedDays} giorni`:''} · Carico ${u.inventory.amount}/${u.inventory.cap}</p></div><div class="community-actions">${this.communityActionsHTML(u)}</div></article>`;
     }).join('') || '<p>Nessun abitante disponibile.</p>';
   };
   const initUI = Game.prototype.initUI;
@@ -75,7 +95,7 @@
       if (!button || button.disabled) return;
       const {community:action,id}=button.dataset;
       if (action === 'select') {if(this.selectCommunityPerson(id)) this.closeManagement(); return;}
-      const changed=action==='mobilize'?this.mobilizePerson(id):action==='demobilize'?this.demobilizePerson(id):false;
+      const changed=action==='mobilize'?this.mobilizePerson(id):action==='demobilize'?this.demobilizePerson(id):action==='exit'?this.exitHomePerson(id):false;
       $('#communityStatus').textContent=changed?$('#message').textContent:'Operazione non riuscita: verifica disponibilità e uscita dal Distretto.';
       if(changed&&!this.save(true)) $('#communityStatus').textContent+=' Salvataggio non riuscito: riprova da Mondo → Salva.';
       this.renderCommunity(); this.updateUI();
@@ -87,7 +107,7 @@
   Game.prototype.updateUI=function(){
     updateUI.call(this);
     const c=this.communityCounts(),people=$('#people');
-    const html=`<b>Gestisci comunità · ${c.total}</b><span>${c.residents} residenti · ${c.mobilized} mobilitati</span>`;
+    const html=`<b>Gestisci comunità · ${c.total}</b><span>${c.residents} residenti · ${c.mobilized} arruolati</span>`;
     const button=people.querySelector?.('[data-open-community]');
     if(button){if(button.innerHTML!==html)button.innerHTML=html;}
     else people.insertAdjacentHTML?.('afterbegin',`<button type="button" data-open-community class="community-open">${html}</button>`);

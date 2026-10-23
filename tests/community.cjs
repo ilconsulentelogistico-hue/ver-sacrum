@@ -30,7 +30,7 @@ test('invalid mobilization cannot replace live state',()=>{
 test('inline event flow mobilizes by ID and preserves background pause',()=>{
  const e=setup(),g=e.g,u=g.units[0];g.enterResident(u,e.b);g.setPaused(false);assert.match(e.byId.people.innerHTML,/data-open-community/);
  e.byId.people.listeners.click[0]({target:{closest:()=>({})}});assert(e.byId.communityDialog.open);assert.equal(g.paused,false);assert.match(e.byId.communityRoster.innerHTML,new RegExp(u.id));
- e.byId.communityRoster.listeners.click[0]({target:{closest:()=>({dataset:{community:'mobilize',id:u.id}})}});assert(u.mobilized);assert.match(e.byId.communitySummary.textContent,/1 mobilitati/);
+ e.byId.communityRoster.listeners.click[0]({target:{closest:()=>({dataset:{community:'mobilize',id:u.id}})}});assert(u.mobilized);assert.match(e.byId.communitySummary.textContent,/1 arruolati/);
  g.suspend();g.resumeFromBackground();g.closeManagement();assert(g.paused);
 });
 test('selecting a resident clears world selection and building never assigns hidden workers',()=>{

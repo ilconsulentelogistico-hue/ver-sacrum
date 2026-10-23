@@ -8,6 +8,8 @@ Gioco strategico per smartphone ambientato in un’Italia preromana immaginata c
 
 Dalla scheda Dettagli di un campo, recinto o bottega completati si può **aggiungere un lavoratore**: il gioco propone una persona libera esperta del mestiere e consente di sceglierne un’altra. Il lavoratore mantiene identità e abilità. Interfaccia **PROVVISORIA, da approvare da Simone**.
 
+BUILD 182 completa il rifacimento dell’interfaccia (Lotto D, Claude): durante una razzia restano «Mostra razziatore», un solo «Difendi» (Casa comune o magazzino minacciato), «Insegui il ladro» e «Recupera cibo a terra»; nella scheda Abilità «Impara da…» propone il maestro più utile; torri e magazzini assegnano la propria sentinella; chi vive in un Distretto può «Fai uscire» o «Arruola», e l’ordine «Entra» si chiama «Vai a vivere»; i trasporti scelgono partenza e arrivo toccando gli edifici sulla mappa; la Guida si riapre dal menu Partita, la minimappa si richiude, gli oggetti si indossano toccando la figura e la fine partita mostra un riepilogo. Interfaccia **PROVVISORIA, da approvare da Simone**.
+
 Il [gioco su GitHub Pages](https://ilconsulentelogistico-hue.github.io/ver-sacrum/) mostra la BUILD 182 dal ramo `codex/partita-completa`, mentre la PR #1 è aperta. Dopo il merge di Simone, impostare **Settings → Pages → Deploy from a branch → `main` → `(root)`**. Il gioco è statico: non richiede una build né un server applicativo; i percorsi sono relativi.
 
 Alla prima apertura scegli:
@@ -38,7 +40,7 @@ Questa build comprende risorse e merci fisiche, raccolta, agricoltura, allevamen
 
 Se una razzia parte a 2× o 4×, la partita torna a 1× con un avviso e continua senza pausa. Il pannello Confederazione suggerisce il **Prossimo passo** in base a casa, mercato, persone, botteghe e relazioni reali: il pulsante apre la scheda o mostra il cantiere giusto. Avvisa anche delle razzie, porta con un tocco alla minaccia e raduna fino a tre abitanti reali a difesa della casa comune. Dopo lo scontro li congeda con un tocco; i residenti tornano alla loro casa.
 
-Ultima suite completa: BUILD 181 **493/493**. Per BUILD 182 i test mirati passano 3/3; la suite generale è stata interrotta dopo 193 test superati per il passaggio di consegne a Claude. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
+Ultima suite completa: BUILD 182 **508/508** (Claude, 23/10/2026). Tre partite automatiche sulla mappa 256×256 con salvataggio a metà: vittoria al giorno 305, sconfitta al 464, sandbox viva al 449. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
 
 Per eseguire i test da una copia locale con Node.js:
 

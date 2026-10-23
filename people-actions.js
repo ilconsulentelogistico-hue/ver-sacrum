@@ -1,5 +1,6 @@
 // UI/UX redesign, lot D (Claude, 23/10/2026): «Impara da…» proposes the best master for
-// the job a person does, and towers and warehouses assign their own sentinel.
+// the job a person does, towers and warehouses assign their own sentinel, a resident's
+// card offers «Fai uscire» and «Arruola», and transports pick their ends on the map.
 (() => {
   'use strict';
   const node = id => (typeof document !== 'undefined' ? document.getElementById(id) : null);
@@ -101,6 +102,67 @@
     return html;
   };
 
+  // --- A person's card: leave the district as a civilian, or enlist.
+  const personHTML = Game.prototype.selectionHTML;
+  Game.prototype.selectionHTML = function(e) {
+    let html = personHTML.call(this, e);
+    if (e instanceof Unit && e.owner === 0 && e.health > 0 && !this.rtsSelectedUnits?.().slice(1).length) {
+      const b = (action, label) => `<button type="button" data-person-action="${action}" data-id="${esc(e.id)}">${label}</button>`;
+      if (e.mobilized) html += b('demobilize', 'Congeda');
+      else if (!e.task && e.location.kind === 'resident') html += b('exit', 'Fai uscire') + b('mobilize', 'Arruola');
+      else if (!e.task) html += b('mobilize', 'Arruola');
+    }
+    return html;
+  };
+  Game.prototype.personAction = function(action, id) {
+    const done = action === 'exit' ? this.exitHomePerson(id) : action === 'mobilize' ? this.mobilizePerson(id) : action === 'demobilize' ? this.demobilizePerson(id) : false;
+    if (done) {
+      const u = this.units.find(p => p.id === id);
+      if (u?.location.kind === 'world') { this.selected = u; this.groupSelection = [u]; for (const p of this.units) p.selected = p === u; this.lastSelectedUnit = u; }
+      this.save(true);
+    }
+    this.updateUI();
+    return done;
+  };
+
+  // --- Transports: touch the start and the end on the map instead of reading two lists.
+  Game.prototype.startRoutePick = function(which) {
+    if (!['source', 'destination'].includes(which)) return false;
+    this.routePick = which; this.orderMode = null; this.buildMode = null; this.syncModeButtons?.();
+    this.message(which === 'source' ? 'Tocca sulla mappa l’edificio da cui prelevare.' : 'Tocca sulla mappa l’edificio a cui consegnare.');
+    return true;
+  };
+  Game.prototype.pickRouteAt = function(pos) {
+    const which = this.routePick;
+    if (!which) return false;
+    this.routePick = null;
+    const b = this.nearestAt(this.buildings, pos, 1.3, x => x.owner === 0 && x.alive && x.built && x.inventory);
+    if (!b) { this.message('Lì non c’è un tuo edificio con scorte. Riprova da «Scegli sulla mappa».'); return true; }
+    const select = node(which === 'source' ? 'sourceSelect' : 'destinationSelect');
+    if (select) select.value = b.id;
+    this.routePickResult = {which, id:b.id};
+    this.message(`${which === 'source' ? 'Partenza' : 'Arrivo'}: ${BUILD_LABEL[b.type]} (${Math.floor(b.x)}, ${Math.floor(b.y)}). Scegli la merce e tocca «Assegna trasporto».`);
+    return true;
+  };
+  for (const method of ['rtsLeftTap', 'rtsContextTap']) {
+    const tap = Game.prototype[method];
+    if (!tap) continue;
+    // Keep every argument: rtsLeftTap's third one says the tap is a MOD (additive) tap.
+    Game.prototype[method] = function(sx, sy, ...rest) {
+      if (!this.routePick) return tap.call(this, sx, sy, ...rest);
+      const w = this.screenToWorld(sx, sy);
+      return this.pickRouteAt({x:w.x / TILE, y:w.y / TILE});
+    };
+  }
+  const renderLogistics = Game.prototype.renderLogistics;
+  Game.prototype.renderLogistics = function(...args) {
+    const result = renderLogistics.apply(this, args);
+    const source = node('pickSource'), dest = node('pickDestination');
+    if (source) source.hidden = !!node('sourceSelect')?.disabled;
+    if (dest) dest.hidden = false;
+    return result;
+  };
+
   const initUI = Game.prototype.initUI;
   Game.prototype.initUI = function() {
     initUI.call(this);
@@ -115,6 +177,11 @@
     if (card) card.addEventListener?.('click', event => {
       const button = event.target.closest?.('[data-assign-sentinel]');
       if (button) this.assignSentinelTo(button.dataset.assignSentinel);
+      const person = event.target.closest?.('[data-person-action]');
+      if (person) this.personAction(person.dataset.personAction, person.dataset.id);
     });
+    const pickSource = node('pickSource'), pickDestination = node('pickDestination');
+    if (pickSource) pickSource.onclick = () => this.startRoutePick('source');
+    if (pickDestination) pickDestination.onclick = () => this.startRoutePick('destination');
   };
 })();

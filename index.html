@@ -121,7 +121,7 @@
         <button data-order="move" type="button"><b>Sposta</b><span>tocca il terreno</span></button>
         <button data-order="gather" type="button"><b>Raccogli</b><span>tocca una risorsa</span></button>
         <button data-order="farm" type="button"><b>Coltiva</b><span>tocca un campo</span></button>
-        <button data-order="enter" type="button"><b>Entra</b><span>tocca un Distretto</span></button>
+        <button data-order="enter" type="button"><b>Vai a vivere</b><span>tocca un Distretto con posti</span></button>
         <button data-order="tame" type="button"><b>Domestica</b><span>tocca una pecora</span></button>
         <button data-order="attack" type="button"><b>Attacca</b><span>tocca una minaccia</span></button>
         <button data-order="heal" type="button"><b>Cura ferito</b><span>persona o casa · 1 tessuto</span></button>
@@ -209,8 +209,8 @@
     <div id="inventoryList"></div>
     <form id="transportForm">
       <label>Abitante<select id="carrierSelect" required></select></label>
-      <label>Preleva da<select id="sourceSelect" required></select></label>
-      <label>Consegna a<select id="destinationSelect" required></select></label>
+      <label>Preleva da<select id="sourceSelect" required></select></label><button id="pickSource" type="button" class="pick-on-map">Scegli la partenza sulla mappa</button>
+      <label>Consegna a<select id="destinationSelect" required></select></label><button id="pickDestination" type="button" class="pick-on-map">Scegli l’arrivo sulla mappa</button>
       <label>Merce<select id="goodsSelect"><option value="grain">Grano</option><option value="barley">Orzo</option><option value="grapes">Uva</option><option value="olives">Olive</option><option value="flour">Farina</option><option value="bread">Pane</option><option value="forage">Foraggio</option><option value="milk">Latte</option><option value="food">Cibo</option><option value="wood">Legna</option><option value="stone">Pietra</option><option value="iron">Ferro</option></select></label>
       <label class="route-option"><input id="repeatRoute" type="checkbox" checked> Ripeti il trasporto finché non cambio ordine</label>
       <button type="submit">Assegna trasporto</button>
@@ -346,6 +346,6 @@
   <script src="./player-panels.js?v=1"></script>
   <script src="./people-actions.js?v=1"></script>
   <script src="./totem-exploration.js?v=1"></script>
-  <script src="./boot.js?v=219"></script>
+  <script src="./boot.js?v=220"></script>
 </body>
 </html>
