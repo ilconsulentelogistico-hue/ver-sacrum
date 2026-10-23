@@ -1,8 +1,10 @@
-const CACHE='terra-italica-v275';
+const CACHE='terra-italica-v276';
 const ASSETS=[
   './',
   './index.html',
   './app.css',
+  './ui-restyle.css',
+  './ui-layout.js',
   './game.js',
   './actor-collisions.js',
   './agriculture.js',

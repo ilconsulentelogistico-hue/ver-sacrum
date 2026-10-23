@@ -1,0 +1,154 @@
+/* Ver Sacrum · UI restyle (Claude, 23/10/2026) · PROVVISORIO, da approvare da Simone.
+   The map always fills the screen and never resizes; the top bar and the panels lie over it.
+   Phone portrait: bottom sheet of fixed height. Phone landscape and PC: side panel on the right.
+   Every rule starts with .ui2 so it wins over app.css and the styles injected by modules. */
+.ui2{
+  --ink:#14110d; --ink2:#1c1812; --ink3:#272118; --edge:#c9a46a44; --edge2:#c9a46a88;
+  --bronze:#c9a46a; --bronze2:#8a6d40; --text:#f0e5c9; --muted:#b4a789; --terra:#c96a43; --olive:#93a85e;
+  --hud-h:88px; --dock-h:0px; --dock-w:0px;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
+  --serif:Georgia,"Noto Serif","Times New Roman",serif;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+.ui2 :focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+
+/* Shell: the map is a fixed full-screen layer. */
+.ui2 .app-shell{position:fixed;inset:0;display:block;height:auto;width:auto;max-width:none;margin:0;border:0;background:#0d0b08}
+.ui2 .world-wrap{position:absolute;inset:0;grid-area:auto;min-height:0}
+
+/* Top bar. */
+.ui2 .hud-top{position:absolute;z-index:30;top:0;left:0;right:0;display:grid;
+  grid-template-columns:repeat(4,minmax(42px,1fr)) auto auto;
+  grid-template-areas:"pause speed id id menus menus" "food wood stone iron idle rel";
+  gap:5px;align-items:center;padding:calc(5px + var(--safe-t)) calc(8px + var(--safe-r)) 6px calc(8px + var(--safe-l));
+  border:0;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,#14110df5,#14110ddd);box-shadow:0 4px 18px #0007}
+.ui2 .hud-actions,.ui2 .resources{display:contents}
+.ui2 #pauseBtn{grid-area:pause}.ui2 #speedBtn{grid-area:speed}.ui2 #idleCountBtn{grid-area:idle}.ui2 #relationsBarBtn{grid-area:rel}
+.ui2 .identity{grid-area:id;display:grid;gap:1px;min-width:0;align-content:center}
+.ui2 .identity strong{font-size:0;line-height:1;letter-spacing:0}
+.ui2 .identity strong small{font-size:8px!important;color:var(--bronze2);letter-spacing:.1em}
+.ui2 .identity span{font-size:11px;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ui2 #sessionState:empty{display:none}
+.ui2 #sessionState{color:var(--bronze)}
+.ui2 .hud-menus{grid-area:menus;display:flex;gap:5px;justify-content:flex-end}
+.ui2 .resource-counter[data-stock-focus="food"]{grid-area:food}.ui2 .resource-counter[data-stock-focus="wood"]{grid-area:wood}
+.ui2 .resource-counter[data-stock-focus="stone"]{grid-area:stone}.ui2 .resource-counter[data-stock-focus="iron"]{grid-area:iron}
+.ui2 .hud-actions>button,.ui2 .resources>button,.ui2 .hud-top .game-menu>summary{height:38px;min-height:38px;min-width:38px;width:auto;padding:0 9px;display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  border:1px solid var(--edge);border-radius:9px;background:linear-gradient(180deg,#2a241b,#1d1913);color:var(--text);font:600 12px/1 system-ui,sans-serif;white-space:nowrap;cursor:pointer;touch-action:manipulation}
+.ui2 .hud-actions>button:active,.ui2 .resources>button:active,.ui2 .hud-top .game-menu>summary:active{background:#3a3021;border-color:var(--edge2)}
+.ui2 .hud-top .game-menu[open]>summary{border-color:var(--bronze);background:#3a3021}
+.ui2 .resource-counter{min-width:0;justify-content:flex-start!important;padding:0 7px!important;background:#0e0c09cc!important}
+.ui2 .resource-counter .dot{width:16px;height:16px;flex:0 0 16px}
+.ui2 .resource-counter b{font:700 14px/1 system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--text)}
+.ui2 .resource-counter small{display:none;font-size:10px;letter-spacing:.04em;text-transform:none;color:var(--muted)}
+.ui2 #relationsBarBtn{height:38px;min-height:38px;padding:0 9px;border:1px solid var(--edge);border-radius:9px;background:linear-gradient(180deg,#2a241b,#1d1913);color:var(--bronze);font:600 12px/1 system-ui,sans-serif;box-shadow:none}
+
+/* Menus from the top bar. */
+.ui2 .game-menu{position:relative}
+.ui2 .game-menu-body{position:absolute;right:0;top:calc(100% + 6px);z-index:40;width:min(330px,calc(100vw - 16px));max-height:calc(100dvh - var(--hud-h) - 24px);
+  padding:10px;gap:6px;border:1px solid var(--edge2);border-radius:12px;background:#14110df7;box-shadow:0 12px 32px #000a}
+.ui2 .game-menu-body button{min-height:48px;padding:8px 10px;text-align:left;border:1px solid var(--edge);border-radius:9px;background:var(--ink3);color:var(--text)}
+.ui2 .game-menu-body b{font-size:13px}.ui2 .game-menu-body span{font-size:11px;color:var(--muted)}
+
+/* Floating map controls, kept clear of the bar and of the panel. */
+.ui2 .minimap{top:calc(var(--hud-h) + 8px);right:calc(8px + var(--safe-r) + var(--dock-w));width:128px;height:90px;border:1px solid var(--edge2);border-radius:10px;background:#1b1712dd;box-shadow:0 4px 16px #0007}
+.ui2 .minimap-toggle{top:calc(var(--hud-h) + 2px);right:calc(8px + var(--safe-r) + var(--dock-w) + 110px);width:26px;height:26px;border:1px solid var(--edge2);border-radius:8px;background:#1d1913f2;color:var(--text)}
+.ui2 .map-controls{top:auto;right:calc(8px + var(--safe-r) + var(--dock-w));bottom:calc(var(--dock-h) + 12px + var(--safe-b));z-index:8;gap:8px}
+.ui2 .map-controls button{width:44px;height:44px;border:1px solid var(--edge);border-radius:11px;background:#14110de6;color:var(--text);font-size:20px}
+.ui2 .touch-modifier{left:calc(12px + var(--safe-l));bottom:calc(var(--dock-h) + 12px + var(--safe-b));width:64px;height:64px;opacity:.72;border-color:var(--edge2);background:#14110dd0}
+.ui2 .touch-modifier span{color:var(--bronze)}
+.ui2 .message{top:auto;bottom:calc(var(--dock-h) + 16px + var(--safe-b));left:88px;right:62px;max-width:none;transform:translateY(6px);text-align:center;
+  padding:9px 12px;border:1px solid var(--edge2);border-radius:11px;background:#14110def;color:var(--text);font-size:13px;line-height:1.35;box-shadow:0 6px 20px #0008}
+.ui2 .message.show{transform:translateY(0)}
+.ui2 .pause-notice{top:calc(var(--hud-h) + 10px);border:1px solid var(--edge2);border-radius:12px;background:#14110def}
+.ui2 .pause-notice button{background:var(--bronze2);color:var(--text)}
+.ui2 .scenario-status{position:absolute;top:calc(var(--hud-h) + 8px);left:calc(8px + var(--safe-l));max-width:calc(100% - var(--dock-w) - 170px);
+  border:1px solid var(--edge2);border-radius:11px;background:#14110de8;color:var(--text);font-size:12px}
+.ui2 .explore-bar{left:calc(88px + var(--safe-l));right:calc(8px + var(--safe-r));bottom:calc(10px + var(--safe-b));border:1px solid var(--edge2);border-radius:12px;background:#14110def;font-size:13px}
+.ui2 .stock-popover{top:calc(var(--hud-h) + 6px);right:calc(8px + var(--safe-r));border:1px solid var(--edge2);border-radius:12px;background:#14110df7}
+
+/* The panel: a bottom sheet of fixed height on phones held upright. */
+.ui2 .command-dock{position:absolute;z-index:25;left:0;right:0;bottom:0;top:auto;height:min(42dvh,380px);max-height:none;width:auto;display:flex;flex-direction:column;
+  padding:4px calc(10px + var(--safe-r)) calc(8px + var(--safe-b)) calc(10px + var(--safe-l));border:0;border-top:1px solid var(--edge2);border-radius:16px 16px 0 0;
+  background:#14110df7;box-shadow:0 -10px 30px #0009}
+.ui2 .command-dock.collapsed{height:auto}
+.ui2 .command-dock.collapsed .dock-tabs,.ui2 .command-dock.collapsed .context-body,.ui2 .command-dock.collapsed #placementStatus{display:none!important}
+.ui2 .context-heading{display:flex;align-items:center;gap:6px;min-height:44px;flex-shrink:0}
+.ui2 .context-heading strong{flex:1;min-width:0;font:600 16px/1.2 var(--serif);letter-spacing:.02em;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ui2 .context-heading button{min-width:44px;min-height:40px;border-radius:9px;color:var(--muted);font-size:22px}
+.ui2 .context-heading button:active{background:var(--ink3)}
+.ui2 .command-dock .dock-tabs{display:flex;gap:4px;margin:0 0 6px;overflow-x:auto;flex-shrink:0;scrollbar-width:none;border-bottom:1px solid #c9a46a22}
+.ui2 .command-dock .dock-tabs::-webkit-scrollbar{display:none}
+.ui2 .command-dock .dock-tabs{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);padding-right:24px}
+.ui2 .dock-tab{flex:0 0 auto;min-height:40px;padding:0 12px;border-radius:9px 9px 0 0;background:none;color:var(--muted);font:600 13px/1 system-ui,sans-serif;box-shadow:none}
+.ui2 .dock-tab.active{color:var(--text);background:#241e16;box-shadow:inset 0 -2px 0 var(--bronze)}
+.ui2 .context-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.ui2 .command-dock .dock-panel{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:6px}
+.ui2 .dock-panel>button,.ui2 .dock-panel .crop-build-chooser>button{min-height:54px;padding:8px 10px;display:grid;align-content:center;gap:3px;text-align:left;
+  border:1px solid var(--edge);border-radius:10px;background:var(--ink2);color:var(--text)}
+.ui2 .dock-panel>button b,.ui2 .dock-panel .crop-build-chooser>button b{font-size:13px;line-height:1.2}
+.ui2 .dock-panel>button span,.ui2 .dock-panel .crop-build-chooser>button span{font-size:11px;line-height:1.25;color:var(--muted)}
+.ui2 .dock-panel>button:active,.ui2 .dock-panel>button.active,.ui2 .dock-panel>button[aria-pressed="true"]{border-color:var(--bronze);background:#3a3021}
+.ui2 .dock-panel>button:disabled{opacity:.5;border-style:dashed}
+.ui2 .command-dock .selection-card h3{font:600 15px/1.25 var(--serif);color:var(--text)}
+.ui2 .command-dock .selection-card p{font-size:13px;line-height:1.4;color:var(--muted)}
+.ui2 .command-dock .selection-card button,.ui2 .management-panel button{min-height:44px;border:1px solid var(--edge);border-radius:9px;background:var(--ink3);color:var(--text)}
+.ui2 .management-panel h2{font:600 16px/1.25 var(--serif)}.ui2 .management-panel h3{font:600 14px/1.25 var(--serif)}
+.ui2 .management-panel p{font-size:13px;line-height:1.4}
+/* Id-based rules in app.css and in the modules need the id here too. */
+.ui2 #worldWrap.exploring .message{bottom:calc(var(--dock-h) + 16px + var(--safe-b))}
+.ui2 #commandDock .management-panel button{min-height:44px;padding:8px 12px;border:1px solid var(--edge);border-radius:9px;background:var(--ink3);color:var(--text)}
+.ui2 #commandDock .management-panel h2{font:600 16px/1.25 var(--serif)}
+.ui2 #commandDock .management-panel h3{font:600 14px/1.25 var(--serif)}
+.ui2 #commandDock .management-panel p{font-size:13px;line-height:1.4}
+
+/* Start, end and other full-screen cards. */
+.ui2 .start-experience{background:#0b0907e6}
+.ui2 .start-card,.ui2 .game-over>div{border:1px solid var(--edge2);border-radius:16px;background:#16120ef9;box-shadow:0 20px 60px #000c}
+.ui2 .start-card h1,.ui2 .game-over h1{font-family:var(--serif)}
+.ui2 .start-card small{color:var(--bronze)}
+.ui2 .start-modes button{border:1px solid var(--edge);border-radius:11px;background:var(--ink2)}
+.ui2 .start-modes button[aria-pressed="true"],.ui2 .start-modes button.active{border-color:var(--bronze);background:#3a3021}
+.ui2 .start-explore{background:var(--bronze);color:#1b150c;border-radius:11px;font-weight:700}
+.ui2 .start-explore:disabled{background:var(--ink3);color:var(--muted)}
+
+/* Phone held sideways: one-row bar, panel on the right. */
+@media (orientation:landscape) and (max-height:540px){
+  .ui2 .hud-top{display:flex;gap:5px;padding-top:calc(4px + var(--safe-t));padding-bottom:4px}
+  .ui2 .identity{flex:1 1 auto;min-width:70px;order:3}
+  .ui2 #pauseBtn{order:1}.ui2 #speedBtn{order:2}.ui2 .resource-counter{order:4;flex:0 0 auto}
+  .ui2 #idleCountBtn{order:5}.ui2 #relationsBarBtn{order:6}.ui2 .hud-menus{order:7}
+  .ui2 .hud-actions>button,.ui2 .resources>button,.ui2 .hud-top .game-menu>summary{height:36px;min-height:36px}
+  .ui2 .command-dock{left:auto;right:0;top:var(--hud-h);bottom:0;height:auto;width:min(46vw,400px);border-top:0;border-left:1px solid var(--edge2);border-radius:14px 0 0 0;padding-top:2px}
+  .ui2 .command-dock.collapsed{bottom:auto}
+  .ui2 .minimap{width:120px;height:84px}
+  .ui2 .minimap-toggle{right:calc(8px + var(--safe-r) + var(--dock-w) + 102px)}
+  .ui2 .message{top:auto;bottom:calc(var(--dock-h) + 12px + var(--safe-b));left:calc(88px + var(--safe-l));right:calc(var(--dock-w) + 64px);transform:translateY(6px)}
+  .ui2 .message.show{transform:translateY(0)}
+  .ui2 .scenario-status{max-width:calc(100% - var(--dock-w) - 160px)}
+}
+/* Wide screens: one-row bar with labels. */
+@media (min-width:760px) and (min-height:541px){
+  .ui2 .hud-top{display:flex;gap:6px}
+  .ui2 .identity{flex:1 1 auto;min-width:120px;order:3}
+  .ui2 #pauseBtn{order:1}.ui2 #speedBtn{order:2}.ui2 .resource-counter{order:4;flex:0 0 auto}
+  .ui2 #idleCountBtn{order:5}.ui2 #relationsBarBtn{order:6}.ui2 .hud-menus{order:7}
+  .ui2 .resource-counter small{display:inline}
+  .ui2 .identity span{font-size:12px}
+}
+/* PC and large tablets: side panel, larger map controls, no MOD button with a mouse. */
+@media (min-width:1024px) and (min-height:600px){
+  .ui2 .command-dock{left:auto;right:0;top:var(--hud-h);bottom:0;height:auto;width:380px;border-top:0;border-left:1px solid var(--edge2);border-radius:14px 0 0 0;padding-top:4px}
+  .ui2 .command-dock.collapsed{bottom:auto}
+  .ui2 .minimap{width:180px;height:126px}
+  .ui2 .minimap-toggle{right:calc(8px + var(--safe-r) + var(--dock-w) + 162px)}
+  .ui2 .message{top:auto;bottom:calc(var(--dock-h) + 18px + var(--safe-b));left:calc((100% - var(--dock-w)) / 2);right:auto;width:max-content;max-width:min(560px,calc(100% - var(--dock-w) - 200px));transform:translate(-50%,6px)}
+  .ui2 .message.show{transform:translate(-50%,0)}
+  .ui2 .hud-actions>button,.ui2 .resources>button,.ui2 .hud-top .game-menu>summary{font-size:13px}
+  .ui2 .hud-actions>button:hover,.ui2 .resources>button:hover,.ui2 .hud-top .game-menu>summary:hover,.ui2 .dock-panel>button:hover,.ui2 .game-menu-body button:hover{border-color:var(--edge2);background:#2f281d}
+  .ui2 .dock-tab:hover{color:var(--text)}
+}
+@media (hover:hover) and (pointer:fine){
+  .ui2 .touch-modifier{display:none}
+}

@@ -8,13 +8,14 @@
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./app.css?v=125">
+  <link rel="stylesheet" href="./ui-restyle.css?v=1">
   <title>Ver Sacrum — RTS Mobile</title>
 </head>
-<body>
+<body class="ui2">
   <main id="app" class="app-shell">
     <header class="hud-top" aria-label="Stato della comunità">
       <div class="identity">
-        <strong>VER SACRUM <small style="font-size:8px;opacity:.55;letter-spacing:.08em">BUILD 184</small></strong>
+        <strong>VER SACRUM <small style="font-size:8px;opacity:.55;letter-spacing:.08em">BUILD 185</small></strong>
         <span id="sessionState" role="status"></span><span id="dateLabel">1 Marzo · 1000 a.C.</span>
       </div>
       <div class="hud-actions" aria-label="Comandi del tempo e persone libere">
@@ -38,7 +39,7 @@
           <button id="group2Btn" type="button"><b>Gruppo 2</b><span>tieni premuto per salvare</span></button>
           <button id="group3Btn" type="button"><b>Gruppo 3</b><span>tieni premuto per salvare</span></button>
           <button id="centerBtn" type="button"><b>Casa comune</b><span>centra la mappa</span></button>
-          <div class="game-menu-help"><strong>Aiuto comandi</strong><p class="desktop-mod-tip">Su PC: Shift o tasto destro = MOD</p><p>Tocca un tuo abitante o edificio per selezionarlo; tocca altrove per ordinare. Tieni MOD e tocca per aggiungere persone, o trascina per il riquadro.</p></div>
+          <div class="game-menu-help"><strong>Aiuto comandi</strong><p class="desktop-mod-tip">Su PC: Shift o tasto destro = MOD</p><p>Tocca un tuo abitante per selezionarlo; il tocco successivo agisce: sul terreno ci va, su una cosa la usa. Se le scelte sono più di una compaiono dei cerchietti. Tieni MOD e tocca per aggiungere persone, o trascina per il riquadro.</p><p class="desktop-mod-tip">Su PC: rotella = zoom · Spazio = pausa · Esc = annulla · frecce o WASD = sposta la mappa</p></div>
         </div></details>
         <details id="partitaMenu" class="game-menu"><summary aria-label="Menu Partita">Partita</summary><div class="game-menu-body">
           <button id="saveBtn" type="button"><b>Salva</b><span id="saveStatus">Nessun salvataggio</span></button>
@@ -58,7 +59,7 @@
       <canvas id="world" aria-label="Mappa di gioco"></canvas>
       <div id="actionWheel" class="action-wheel" hidden></div>
       <div id="bootLoading" role="status" style="position:absolute;z-index:40;inset:0;display:grid;place-content:center;padding:20px;background:#233126;color:#eee1ba;font:600 17px system-ui;text-align:center">Preparo il territorio…</div>
-      <section id="bootFault" role="alert" hidden style="position:absolute;z-index:200;inset:12px;place-content:center;gap:10px;padding:20px;border:2px solid #caa76a;border-radius:12px;background:#1b201af2;color:#fff2d7;font:16px/1.4 system-ui;text-align:center;touch-action:auto"><strong>Il gioco non riesce a mostrare la mappa.</strong><span id="bootFaultDetail">Ricarica la pagina. La partita salvata resta sul dispositivo.</span><button type="button" onclick="location.reload()" style="min-height:48px;border-radius:8px;background:#846a3d;color:white;font:inherit">Riprova</button><small>BUILD 184</small></section>
+      <section id="bootFault" role="alert" hidden style="position:absolute;z-index:200;inset:12px;place-content:center;gap:10px;padding:20px;border:2px solid #caa76a;border-radius:12px;background:#1b201af2;color:#fff2d7;font:16px/1.4 system-ui;text-align:center;touch-action:auto"><strong>Il gioco non riesce a mostrare la mappa.</strong><span id="bootFaultDetail">Ricarica la pagina. La partita salvata resta sul dispositivo.</span><button type="button" onclick="location.reload()" style="min-height:48px;border-radius:8px;background:#846a3d;color:white;font:inherit">Riprova</button><small>BUILD 185</small></section>
       <div id="pauseNotice" class="pause-notice hidden" role="status"><strong>Partita in pausa</strong><span>Gli ordini partiranno quando riprendi.</span><button id="resumeGame" type="button">Riprendi partita ▶</button></div>
       <div class="map-controls" aria-label="Controlli mappa">
         <button id="zoomIn" type="button" aria-label="Aumenta zoom">+</button>
@@ -100,7 +101,7 @@
     </section>
 
     <nav id="commandDock" class="command-dock" aria-label="Selezione e comandi" hidden>
-      <header class="context-heading"><strong id="contextTitle">Selezione</strong><button id="clearSelection" type="button" aria-label="Deseleziona">×</button></header>
+      <header class="context-heading"><strong id="contextTitle">Selezione</strong><button id="dockCollapse" type="button" aria-expanded="true" aria-label="Riduci il pannello">▾</button><button id="clearSelection" type="button" aria-label="Deseleziona">×</button></header>
       <div id="placementStatus" hidden><span id="placementLabel"></span><div id="placementActions"><button id="confirmPlacement" type="button" aria-label="Conferma costruzione" hidden>✓</button><button id="cancelPlacement" type="button" aria-label="Annulla costruzione">✕</button></div></div>
       <div class="dock-tabs" role="tablist" aria-label="Schede della selezione">
         <button id="tab-overview" class="dock-tab" data-panel="overview" role="tab" aria-controls="overview" type="button">Dettagli</button>
@@ -273,7 +274,7 @@
       broken=true;
       detail.textContent=reason||'Ricarica la pagina. La partita salvata resta sul dispositivo.';
       panel.hidden=false;
-      console.error('Ver Sacrum BUILD 184:',reason);
+      console.error('Ver Sacrum BUILD 185:',reason);
     };
     addEventListener('error',event=>{
       if(event.target!==window){
@@ -323,7 +324,7 @@
   <script src="./skills.js?v=84"></script>
   <script src="./construction-knowledge.js?v=113"></script>
   <script src="./settlement.js?v=102"></script>
-  <script src="./village-footprint.js?v=85"></script>
+  <script src="./village-footprint.js?v=86"></script>
   <script src="./contextual-ui.js?v=114"></script>
   <script src="./collisions.js?v=120"></script>
   <script src="./pathfinding.js?v=2"></script>
@@ -348,8 +349,9 @@
   <script src="./player-panels.js?v=1"></script>
   <script src="./people-actions.js?v=2"></script>
   <script src="./totem-exploration.js?v=1"></script>
-  <script src="./action-tap.js?v=1"></script>
+  <script src="./action-tap.js?v=2"></script>
   <script src="./player-messages.js?v=1"></script>
-  <script src="./boot.js?v=222"></script>
+  <script src="./ui-layout.js?v=1"></script>
+  <script src="./boot.js?v=223"></script>
 </body>
 </html>

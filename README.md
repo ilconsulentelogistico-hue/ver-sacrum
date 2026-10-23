@@ -1,4 +1,4 @@
-# Ver Sacrum — BUILD 184
+# Ver Sacrum — BUILD 185
 
 Gioco strategico per smartphone ambientato in un’Italia preromana immaginata con prudenza. Parti con cinque giovani, scegli dove fondare il villaggio e fai crescere persone, mestieri, economia e rapporti con le altre comunità. Puoi giocare una **Confederazione** con vittoria e sconfitta oppure una partita **sandbox**.
 
@@ -14,7 +14,9 @@ BUILD 183 corregge i percorsi (Claude): un ordine verso un punto oltre il fiume 
 
 BUILD 184 introduce il **tocco d’azione** (regola di Simone): il primo tocco seleziona, il successivo agisce. Con abitanti selezionati, un tocco su un tuo edificio fa ciò che lì si può fare: su un cantiere vanno a costruire, su un Distretto vanno a vivere, su campo, recinto e botteghe lavorano, sul magazzino o sulla Casa comune depositano il carico, su un edificio danneggiato riparano, gli arruolati presidiano torri e magazzini. Se le azioni possibili sono più di una compaiono dei cerchietti attorno al dito, con anche «Dettagli» per selezionare l’edificio; se non ce ne sono, l’edificio si seleziona come prima. «Vai a vivere» ora conferma l’ordine, e la barra dei messaggi non riporta più il lavoro quotidiano degli abitanti degli altri villaggi. Interfaccia **PROVVISORIA, da approvare da Simone**.
 
-Il [gioco su GitHub Pages](https://ilconsulentelogistico-hue.github.io/ver-sacrum/) mostra la BUILD 184 dal ramo `codex/partita-completa`, mentre la PR #1 è aperta. Dopo il merge di Simone, impostare **Settings → Pages → Deploy from a branch → `main` → `(root)`**. Il gioco è statico: non richiede una build né un server applicativo; i percorsi sono relativi.
+BUILD 185 rifà l’interfaccia (Claude, con le skill `game-ui-ux`, `threejs-game-ui-designer` e `input-systems`): la mappa occupa sempre tutto lo schermo e non si ridimensiona più quando si apre un pannello, quindi non trema; barra in alto compatta e sovrapposta alla mappa; sul telefono in verticale il pannello è un foglio in basso di altezza fissa, riducibile con ▾; in orizzontale e sul PC è un pannello laterale a destra. Zoom, minimappa, MOD e messaggi stanno fuori dai pannelli; quando il gioco centra la mappa su qualcosa lo mette nella parte visibile. Sul PC: rotella per lo zoom, Spazio pausa, Esc annulla, frecce o WASD per spostare la mappa. Un Distretto mostra una casa per abitante (prima 16 case per 5 persone). Interfaccia **PROVVISORIA, da approvare da Simone**.
+
+Il [gioco su GitHub Pages](https://ilconsulentelogistico-hue.github.io/ver-sacrum/) mostra la BUILD 185 dal ramo `codex/partita-completa`, mentre la PR #1 è aperta. Dopo il merge di Simone, impostare **Settings → Pages → Deploy from a branch → `main` → `(root)`**. Il gioco è statico: non richiede una build né un server applicativo; i percorsi sono relativi.
 
 Alla prima apertura scegli:
 
@@ -44,7 +46,7 @@ Questa build comprende risorse e merci fisiche, raccolta, agricoltura, allevamen
 
 Se una razzia parte a 2× o 4×, la partita torna a 1× con un avviso e continua senza pausa. Il pannello Confederazione suggerisce il **Prossimo passo** in base a casa, mercato, persone, botteghe e relazioni reali: il pulsante apre la scheda o mostra il cantiere giusto. Avvisa anche delle razzie, porta con un tocco alla minaccia e raduna fino a tre abitanti reali a difesa della casa comune. Dopo lo scontro li congeda con un tocco; i residenti tornano alla loro casa.
 
-Ultima suite completa: BUILD 184 **517/517** (Claude, 23/10/2026). Tre partite automatiche sulla mappa 256×256 con salvataggio a metà: vittoria al giorno 305, sconfitta al 464, sandbox viva al 449. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
+Ultima suite completa: BUILD 185 **521/521** (Claude, 23/10/2026). Tre partite automatiche sulla mappa 256×256 con salvataggio a metà: vittoria al giorno 305, sconfitta al 464, sandbox viva al 449. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
 
 Per eseguire i test da una copia locale con Node.js:
 

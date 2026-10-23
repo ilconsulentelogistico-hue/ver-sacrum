@@ -54,10 +54,12 @@
       const angle = -Math.PI / 2 + i * 2 * Math.PI / items.length;
       return `<button type="button" data-wheel="${a.id}" style="left:${Math.round(Math.cos(angle) * radius)}px;top:${Math.round(Math.sin(angle) * radius)}px"><b>${a.icon}</b><span>${esc(a.label)}</span></button>`;
     }).join('');
-    const w = this.viewW || 390, h = this.viewH || 600;
-    wheel.style.left = `${Math.round(clamp(sx, margin, Math.max(margin, w - margin)))}px`;
-    wheel.style.top = `${Math.round(clamp(sy, margin, Math.max(margin, h - margin)))}px`;
+    // Keep the circles on the part of the map that the bar and the panel leave visible.
+    const w = this.viewW || 390, h = this.viewH || 600, i = this.measurePanels?.() || {top:0, bottom:0, right:0, left:0};
+    wheel.style.left = `${Math.round(clamp(sx, i.left + margin, Math.max(i.left + margin, w - i.right - margin)))}px`;
+    wheel.style.top = `${Math.round(clamp(sy, i.top + margin, Math.max(i.top + margin, h - i.bottom - margin)))}px`;
     wheel.hidden = false;
+    node('message')?.classList?.remove?.('show');
     this.actionWheel = {target, actions};
   };
   Game.prototype.hideActionWheel = function() {
