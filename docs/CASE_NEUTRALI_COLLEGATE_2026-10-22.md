@@ -1,0 +1,7 @@
+# Case neutrali collegate nei nuovi mondi
+
+La normalizzazione delle risorse e degli edifici poteva allontanare una casa neutrale dal suo mercato oltre il raggio di 12 celle. Dopo la normalizzazione, solo in un nuovo mondo, il gioco cerca una sede edificabile entro quel raggio. Conserva ID, domicilio e persone. Prima riserva il campo, poi cerca la sede della casa, poi colloca il mulino: sul seed 123456 questo evita di occupare l'unica area libera per il campo. Le risorse naturali che occupano la nuova impronta, se presenti, vengono segnate come liberate e il loro stato entra nel salvataggio; la scelta preferisce posizioni che ne rimuovono meno.
+
+Prova seed 123456: casa del Clan del Guado da (14,5;4,5) dopo normalizzazione a (15,5;31,5), mercato (15,5;23,5); collegamento aperto, tre persone iniziali conservate e nutrite. Browser mobile: casa e campo visibili, nessun errore. Controllo manuale di 60 seed, 180 villaggi: nessun collegamento casa–mercato, campo–magazzino o mulino–mercato mancante. Test mirati 15/15, incluso reload con stesso ID e stessa posizione; suite completa 275/275. Due prove Chromium sul server con viewport mobile: `newGame(123456)` 462–654 ms per 88 e 95–124 ms per 2048; entrambi i mondi con 18 edifici, 14 persone, tre case collegate e zero errori. Sono tempi del server, non del Redmi.
+
+I salvataggi già esistenti non spostano automaticamente le case: serve una migrazione separata e prudente per eventuali partite con questo difetto. Prova fisica Redmi Note 10 ancora aperta.

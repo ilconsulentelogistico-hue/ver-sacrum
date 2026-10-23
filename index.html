@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#171a16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./app.css?v=125">
+  <link rel="stylesheet" href="./ui-restyle.css?v=1">
+  <title>Ver Sacrum — RTS Mobile</title>
+</head>
+<body class="ui2">
+  <main id="app" class="app-shell">
+    <header class="hud-top" aria-label="Stato della comunità">
+      <div class="identity">
+        <strong>VER SACRUM <small style="font-size:8px;opacity:.55;letter-spacing:.08em">BUILD 185</small></strong>
+        <span id="sessionState" role="status"></span><span id="dateLabel">1 Marzo · 1000 a.C.</span>
+      </div>
+      <div class="hud-actions" aria-label="Comandi del tempo e persone libere">
+        <button id="pauseBtn" type="button" aria-label="Pausa">Ⅱ</button>
+        <button id="speedBtn" type="button" aria-label="Velocità della partita: 1 volta. Tocca per cambiare">1×</button>
+        <button id="idleCountBtn" type="button" aria-label="5 abitanti liberi. Tocca per selezionare il prossimo">5 liberi</button>
+      </div>
+      <div class="resources" id="resourceBar">
+        <button class="resource-counter" type="button" data-stock-focus="food" aria-label="Apri tutte le scorte, evidenzia cibo"><i class="dot food"></i><b id="foodVal">0</b><small>cibo</small></button>
+        <button class="resource-counter" type="button" data-stock-focus="wood" aria-label="Apri tutte le scorte, evidenzia legno"><i class="dot wood"></i><b id="woodVal">0</b><small>legno</small></button>
+        <button class="resource-counter" type="button" data-stock-focus="stone" aria-label="Apri tutte le scorte, evidenzia pietra"><i class="dot stone"></i><b id="stoneVal">0</b><small>pietra</small></button>
+        <button class="resource-counter" type="button" data-stock-focus="iron" aria-label="Apri tutte le scorte, evidenzia ferro"><i class="dot iron"></i><b id="ironVal">0</b><small>ferro</small></button>
+        <button id="relationsBarBtn" type="button" aria-label="Apri Relazioni">Relazioni</button>
+      </div>
+      <div class="hud-menus" aria-label="Menu">
+        <details id="gameMenu" class="game-menu"><summary aria-label="Menu Gioco">Gioco</summary><div class="game-menu-body">
+          <button id="communityBuildBtn" type="button"><b>Costruisci</b><span>cantiere della comunità</span></button>
+          <button id="idleNextBtn" type="button"><b>Prossimo libero</b><span>seleziona e centra</span></button>
+          <button id="idleAllBtn" type="button"><b>Tutti liberi</b><span>selezione multipla</span></button>
+          <button id="group1Btn" type="button"><b>Gruppo 1</b><span>tieni premuto per salvare</span></button>
+          <button id="group2Btn" type="button"><b>Gruppo 2</b><span>tieni premuto per salvare</span></button>
+          <button id="group3Btn" type="button"><b>Gruppo 3</b><span>tieni premuto per salvare</span></button>
+          <button id="centerBtn" type="button"><b>Casa comune</b><span>centra la mappa</span></button>
+          <div class="game-menu-help"><strong>Aiuto comandi</strong><p class="desktop-mod-tip">Su PC: Shift o tasto destro = MOD</p><p>Tocca un tuo abitante per selezionarlo; il tocco successivo agisce: sul terreno ci va, su una cosa la usa. Se le scelte sono più di una compaiono dei cerchietti. Tieni MOD e tocca per aggiungere persone, o trascina per il riquadro.</p><p class="desktop-mod-tip">Su PC: rotella = zoom · Spazio = pausa · Esc = annulla · frecce o WASD = sposta la mappa</p></div>
+        </div></details>
+        <details id="partitaMenu" class="game-menu"><summary aria-label="Menu Partita">Partita</summary><div class="game-menu-body">
+          <button id="saveBtn" type="button"><b>Salva</b><span id="saveStatus">Nessun salvataggio</span></button>
+          <button id="loadBtn" type="button"><b>Carica</b><span id="loadStatus">Controllo salvataggio…</span></button>
+          <button id="newWorldBtn" type="button"><b>Nuovo mondo</b><span>chiede conferma</span></button>
+          <button id="guideBtn" type="button"><b>Guida</b><span>rivedi i primi passi</span></button>
+          <details id="gameSettings" class="menu-settings"><summary>Impostazioni</summary><div>
+            <button id="soundToggle" type="button" aria-pressed="true">Suoni: attivi</button>
+            <button id="forceBuildBtn" type="button"><b>Aggiorna il gioco</b><span>scarica l’ultima versione</span></button>
+          </div></details>
+        </div></details>
+      </div>
+    </header>
+    <aside id="stockPopover" class="stock-popover" aria-label="Scorte della comunità" hidden><header><strong>Scorte della comunità</strong><button id="stockCloseBtn" type="button" aria-label="Chiudi scorte">×</button></header><p>Totale nei depositi e con gli abitanti; «liberi» è ciò che può pagare i cantieri.</p><div id="stockOverview"></div></aside>
+
+    <section class="world-wrap" id="worldWrap">
+      <canvas id="world" aria-label="Mappa di gioco"></canvas>
+      <div id="actionWheel" class="action-wheel" hidden></div>
+      <div id="bootLoading" role="status" style="position:absolute;z-index:40;inset:0;display:grid;place-content:center;padding:20px;background:#233126;color:#eee1ba;font:600 17px system-ui;text-align:center">Preparo il territorio…</div>
+      <section id="bootFault" role="alert" hidden style="position:absolute;z-index:200;inset:12px;place-content:center;gap:10px;padding:20px;border:2px solid #caa76a;border-radius:12px;background:#1b201af2;color:#fff2d7;font:16px/1.4 system-ui;text-align:center;touch-action:auto"><strong>Il gioco non riesce a mostrare la mappa.</strong><span id="bootFaultDetail">Ricarica la pagina. La partita salvata resta sul dispositivo.</span><button type="button" onclick="location.reload()" style="min-height:48px;border-radius:8px;background:#846a3d;color:white;font:inherit">Riprova</button><small>BUILD 185</small></section>
+      <div id="pauseNotice" class="pause-notice hidden" role="status"><strong>Partita in pausa</strong><span>Gli ordini partiranno quando riprendi.</span><button id="resumeGame" type="button">Riprendi partita ▶</button></div>
+      <div class="map-controls" aria-label="Controlli mappa">
+        <button id="zoomIn" type="button" aria-label="Aumenta zoom">+</button>
+        <button id="zoomOut" type="button" aria-label="Riduci zoom">−</button>
+      </div>
+      <button id="touchModifier" class="touch-modifier" type="button" aria-label="Tieni premuto per selezionare; MOD e tap annulla la costruzione" aria-pressed="false"><span>MOD</span></button>
+      <div id="message" class="message" role="status"></div>
+      <canvas id="minimap" class="minimap" width="160" height="112" aria-label="Minimappa navigabile"></canvas>
+      <button id="minimapToggle" class="minimap-toggle" type="button" aria-pressed="false" aria-label="Nascondi la minimappa">×</button>
+      <section id="startExperience" class="start-experience hidden" aria-label="Inizio della partita" role="dialog" aria-modal="true">
+        <div class="start-card">
+          <small>VER SACRUM · NUOVA PARTITA</small>
+          <h1 id="startTitle">Dove fondare il villaggio?</h1>
+          <p id="startDescription">Scegli un luogo per i cinque giovani. Il territorio è lo stesso: cambiano le risorse vicine e i primi passi.</p>
+          <div id="startWorldSizes" class="start-modes" aria-label="Grandezza della mappa"><button type="button" data-start-world-size="256"><b>Mappa ampia · 256×256</b><span>Consigliata per il telefono.</span></button><button type="button" data-start-world-size="512"><b>Mappa molto ampia · 512×512</b><span>Più territorio, da provare sul tuo dispositivo.</span></button></div>
+          <div id="startModes" class="start-modes"><button type="button" data-start-mode="confederation"><b>Confederazione</b><span>Obiettivi, razzie e vittoria o sconfitta.</span></button><button type="button" data-start-mode="sandbox"><b>Sandbox</b><span>Costruisci ed esplora senza limite di tempo né razzie.</span></button></div>
+          <div id="startTotems" class="start-modes start-totems" aria-label="Animale sacro"></div>
+          <button id="startExplore" class="start-explore" type="button" disabled>Scegli l’animale sacro</button>
+          <div id="startPlaces" class="start-places"></div>
+          <div id="startTutorial" class="start-tutorial hidden">
+            <p id="startTutorialStep"></p>
+            <p class="desktop-mod-tip">Su PC: Shift o tasto destro = MOD</p>
+            <div class="start-actions"><button id="startTutorialSkip" type="button">Salta guida</button><button id="startTutorialNext" type="button">Avanti</button></div>
+          </div>
+        </div>
+      </section>
+      <section id="exploreBar" class="explore-bar hidden" aria-label="Esplorazione"><div class="explore-text"><b id="exploreTitle">Esplorazione</b><span id="exploreHint" role="status"></span></div><div class="explore-actions"><button id="plantTotem" type="button" disabled>Pianta il totem qui</button><button id="exploreBack" type="button" class="secondary">Cambia scelta</button></div></section>
+      <details id="scenarioStatus" class="scenario-status hidden"><summary id="scenarioSummary">Confederazione</summary><p id="scenarioNext"></p><button id="scenarioNextButton" type="button" class="hidden">Prossimo passo</button><p id="scenarioGoals"></p><p id="scenarioThreat"></p><button id="scenarioThreatButton" type="button" class="hidden">Mostra minaccia sulla mappa</button><button id="scenarioThiefButton" type="button" class="hidden">Segui ladro col cibo</button><button id="scenarioThiefInterceptButton" type="button" class="hidden">Intercetta con un mobilitato</button><button id="scenarioRecoveredFoodButton" type="button" class="hidden">Mostra cibo recuperato</button><button id="scenarioCollectFoodButton" type="button" class="hidden">Raccogli con abitante</button><button id="scenarioRallyButton" type="button" class="hidden">Raduna difensori</button><div id="scenarioDefendChoices" class="scenario-defend" hidden></div><button id="scenarioStoreDefenseButton" type="button" class="hidden">Difendi magazzino</button><button id="scenarioStoreFocusButton" type="button" class="hidden">Mostra magazzino</button><button id="scenarioReleaseButton" type="button" class="hidden">Congeda difensori</button></details>
+      <div id="gameOver" class="game-over hidden">
+        <div>
+          <small id="gameResultEyebrow">FINE DELLA COMUNITÀ</small>
+          <h1 id="gameResultTitle">L'insediamento è caduto</h1>
+          <p id="gameResultText">Il mondo resta deterministico: puoi ricominciare dalla stessa geografia o generare un territorio nuovo.</p>
+          <ul id="gameSummary" class="game-summary"></ul>
+          <button id="restartSame" type="button">Ricomincia</button>
+          <button id="restartNew" type="button" class="secondary">Nuovo territorio</button>
+        </div>
+      </div>
+    </section>
+
+    <nav id="commandDock" class="command-dock" aria-label="Selezione e comandi" hidden>
+      <header class="context-heading"><strong id="contextTitle">Selezione</strong><button id="dockCollapse" type="button" aria-expanded="true" aria-label="Riduci il pannello">▾</button><button id="clearSelection" type="button" aria-label="Deseleziona">×</button></header>
+      <div id="placementStatus" hidden><span id="placementLabel"></span><div id="placementActions"><button id="confirmPlacement" type="button" aria-label="Conferma costruzione" hidden>✓</button><button id="cancelPlacement" type="button" aria-label="Annulla costruzione">✕</button></div></div>
+      <div class="dock-tabs" role="tablist" aria-label="Schede della selezione">
+        <button id="tab-overview" class="dock-tab" data-panel="overview" role="tab" aria-controls="overview" type="button">Dettagli</button>
+        <button id="tab-orders" class="dock-tab" data-panel="orders" role="tab" aria-controls="orders" type="button">Ordini</button>
+        <button id="tab-build" class="dock-tab" data-panel="build" role="tab" aria-controls="build" type="button">Costruisci</button>
+        <button id="tab-characterDialog" class="dock-tab" data-panel="characterDialog" role="tab" aria-controls="characterDialog" type="button">Equipaggia</button>
+        <button id="tab-skillsDialog" class="dock-tab" data-panel="skillsDialog" role="tab" aria-controls="skillsDialog" type="button">Abilità</button>
+        <button id="tab-knowledgeDialog" class="dock-tab" data-panel="knowledgeDialog" role="tab" aria-controls="knowledgeDialog" type="button">Saperi</button>
+        <button id="tab-communityDialog" class="dock-tab" data-panel="communityDialog" role="tab" aria-controls="communityDialog" type="button">Abitanti</button>
+        <button id="tab-logisticsDialog" class="dock-tab" data-panel="logisticsDialog" role="tab" aria-controls="logisticsDialog" type="button">Scorte e lavori</button>
+        <button id="tab-linksDialog" class="dock-tab" data-panel="linksDialog" role="tab" aria-controls="linksDialog" type="button">Collegamenti</button>
+        <button id="tab-tradeDialog" class="dock-tab" data-panel="tradeDialog" role="tab" aria-controls="tradeDialog" type="button">Carovane</button>
+        <button id="tab-politicsDialog" class="dock-tab" data-panel="politicsDialog" role="tab" aria-controls="politicsDialog" type="button">Relazioni</button>
+      </div>
+      <div id="contextBody" class="context-body">
+      <section id="overview" class="dock-panel">      <div id="selectionCard" class="selection-card hidden"></div>
+</section>
+      <div id="orders" class="dock-panel">
+        <button data-order="move" type="button"><b>Sposta</b><span>tocca il terreno</span></button>
+        <button data-order="gather" type="button"><b>Raccogli</b><span>tocca una risorsa</span></button>
+        <button data-order="farm" type="button"><b>Coltiva</b><span>tocca un campo</span></button>
+        <button data-order="enter" type="button"><b>Vai a vivere</b><span>tocca un Distretto con posti</span></button>
+        <button data-order="tame" type="button"><b>Domestica</b><span>tocca una pecora</span></button>
+        <button data-order="attack" type="button"><b>Attacca</b><span>tocca una minaccia</span></button>
+        <button data-order="heal" type="button"><b>Cura ferito</b><span>persona o casa · 1 tessuto</span></button>
+        <button data-order="healer-duty" type="button" aria-pressed="false"><b>Curante stabile</b><span>vicino alla base · 1 tessuto per cura</span></button>
+        <button data-order="follow-mentor" type="button" aria-pressed="false"><b>Segui maestro</b><span>allievo · tocca per interrompere</span></button>
+        <button data-order="guard-duty" type="button" aria-pressed="false"><b>Sentinella stabile</b><span>mobilitato · difende la base</span></button>
+        <button data-order="tower-duty" type="button" aria-pressed="false"><b>Presidia torre</b><span>mobilitato · tocca una tua torre</span></button>
+        <button data-order="warehouse-duty" type="button" aria-pressed="false"><b>Presidia magazzino</b><span>mobilitato · tocca un tuo magazzino</span></button>
+        <button data-order="deliver" type="button"><b>Consegna</b><span>tocca un deposito</span></button>
+        <button data-order="cancel" type="button"><b>Libera</b><span>annulla il compito</span></button>
+      </div>
+      <div id="build" class="dock-panel">
+        <label id="builderChoiceWrap" class="builder-choice" hidden>Costruttore <select id="builderChoice" aria-label="Scegli il costruttore"></select><small>Il gioco propone chi ha più esperienza; scegli un altro abitante se vuoi.</small></label>
+        <button data-build="road" type="button"><b>Sentiero</b><span>1 legno</span></button>
+        <button data-build="warehouse" type="button"><b>Magazzino</b><span>18L · 8P</span></button>
+        <button data-build="house" type="button"><b>Distretto · 4 × 4</b><span>24L · 10P</span></button>
+        <button data-build="sawmill" type="button"><b>Falegnameria</b><span>18L · 8P</span></button>
+        <button data-build="mill" type="button"><b>Mulino</b><span>20L · 12P</span></button>
+        <button data-build="bakery" type="button"><b>Forno</b><span>16L · 16P</span></button>
+        <button data-build="kiln" type="button"><b>Fornace ceramica</b><span>20L · 12P</span></button>
+        <button data-build="foundry" type="button"><b>Fonderia</b><span>24L · 18P</span></button>
+        <button data-build="loom" type="button"><b>Telaio</b><span>18L · 6P</span></button>
+        <button data-build="press" type="button"><b>Torchio</b><span>18L · 8P · uva o olive</span></button>
+        <button data-build="farm" type="button"><b>Campo</b><span>10 legno · scegli prima la coltura</span></button>
+        <div id="cropBuildChooser" class="crop-build-chooser" hidden>
+          <button data-crop-build="grain" type="button"><b>Grano · 3 × 3</b><span>massimo 2 lavoratori</span></button>
+          <button data-crop-build="barley" type="button"><b>Orzo · 2 × 2</b><span>massimo 2 lavoratori</span></button>
+          <button data-crop-build="grapes" type="button"><b>Vite · 3 × 3</b><span>massimo 8 lavoratori</span></button>
+          <button data-crop-build="olives" type="button"><b>Olivo · 3 × 3</b><span>massimo 8 lavoratori</span></button>
+        </div>
+        <button data-build="pen" type="button"><b>Recinto</b><span>12L · 4P</span></button>
+        <button data-build="market" type="button"><b>Mercato</b><span>22L · 10P</span></button>
+        <button data-build="palisade" type="button"><b>Palizzata</b><span>4 legno/segmento · trascina</span></button>
+        <button data-build="tower" type="button"><b>Torre</b><span>14L · 8P</span></button>
+      </div>
+  <section class="management-panel dock-panel" hidden id="characterDialog" aria-labelledby="characterTitle">
+    <header><h2 id="characterTitle">Personaggio</h2><button id="closeCharacter" type="button">Dettagli</button></header>
+    <p>equipaggiamento personale. Le abilità sono nella scheda Abilità.</p>
+    <label>Abitante <select id="characterPeople"></select></label>
+    <h3 id="characterIdentity"></h3><small id="characterId"></small>
+    <div id="characterControls">
+      <div class="paperdoll"><div class="paperdoll-figure" role="img" aria-label="Figura dell’abitante"></div><div class="paperdoll-slots"><p id="gear-head"></p><p id="gear-body"></p><p id="gear-hand"></p></div></div>
+      <p id="characterStats"></p><p id="characterBag"></p>
+      <label>Oggetto <select id="characterItems"></select></label>
+      <div class="character-actions"><button id="characterEquip" type="button">Equipaggia</button><button id="characterRemove" type="button">Metti in borsa</button></div>
+      <label>Rastrelliera locale <select id="characterRacks"></select></label><button id="characterStore" type="button">Deposita oggetto</button><button id="characterCraftTunic" type="button">Cuci tunica · 2 tessuti</button>
+      <label>Fonderia vicina <select id="characterFoundries"></select></label><button id="characterForgeAxe" type="button">Forgia ascia · 2 bronzi + 1 legna</button>
+    </div><p id="characterStatus" role="status"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="politicsDialog" aria-labelledby="politicsTitle">
+    <header><h2 id="politicsTitle">Diplomazia</h2><button id="closePolitics" type="button">Dettagli</button></header>
+    <p>Le relazioni modificano prezzi e accesso ai mercati, senza trasferire automaticamente persone o scorte.</p>
+    <div id="politicsList"></div><p id="politicsRules"></p><p id="politicsStatus" role="status"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="skillsDialog" aria-labelledby="skillsTitle">
+    <header><h2 id="skillsTitle">Skill</h2><button id="closeSkills" type="button">Dettagli</button></header>
+    <p>livelli personali ottenuti usando le abilità.</p>
+    <label>Abitante <select id="skillsPeople"></select></label>
+    <h3 id="skillsIdentity"></h3><small id="skillsId"></small>
+    <p id="skillsSuggestion" role="status"></p><button id="learnFromBest" type="button" hidden>Impara da…</button>
+    <label>Maestro di lavoro <select id="skillsMentor"></select></label>
+    <button id="setSkillsMentor" type="button">Imposta maestro</button>
+    <p>Il maestro aiuta se lavora allo stesso lotto, campo o punto di raccolta e conosce meglio quel mestiere.</p>
+    <div id="skillsList"></div>
+    <p id="skillsRules"></p><p id="skillsStatus" role="status"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="communityDialog" aria-labelledby="communityTitle">
+    <header><h2 id="communityTitle">La comunità</h2><button id="closeCommunity" type="button">Dettagli</button></header>
+    <p>Mobilita una persona disponibile per portarla sulla mappa e assegnarle ordini.</p>
+    <p id="communitySummary"></p>
+    <p>I residenti indicano dove si trovano le persone. Disponibili, occupati e mobilitati indicano il loro impiego e insieme formano la popolazione totale.</p>
+    <p id="populationSummary"></p><div id="populationDistricts"></div>
+    <div id="communityRoster"></div><p id="communityStatus" role="status"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="knowledgeDialog" aria-labelledby="knowledgeTitle">
+    <header><h2 id="knowledgeTitle">Saperi edilizi</h2><button id="closeKnowledge" type="button">Dettagli</button></header>
+    <p>Separati dalle skill: determinano quali cantieri una persona può avviare.</p>
+    <label>Abitante <select id="knowledgePeople"></select></label><h3 id="knowledgeIdentity"></h3>
+    <section class="knowledge-columns"><div><h4>Personali</h4><ul id="personalKnowledge"></ul></div><div><h4>Tribali</h4><ul id="tribalKnowledge"></ul></div></section>
+    <p id="knowledgeRules"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="logisticsDialog" aria-labelledby="logisticsTitle">
+    <header><h2 id="logisticsTitle">Scorte e trasporti</h2><button id="closeLogistics" type="button">Dettagli</button></header>
+      <p>Campi, fabbriche e recinti dipendono da scorte e lavoratori locali.</p>
+    <div id="inventoryList"></div>
+    <form id="transportForm">
+      <label>Abitante<select id="carrierSelect" required></select></label>
+      <label>Preleva da<select id="sourceSelect" required></select></label><button id="pickSource" type="button" class="pick-on-map">Scegli la partenza sulla mappa</button>
+      <label>Consegna a<select id="destinationSelect" required></select></label><button id="pickDestination" type="button" class="pick-on-map">Scegli l’arrivo sulla mappa</button>
+      <label>Merce<select id="goodsSelect"><option value="grain">Grano</option><option value="barley">Orzo</option><option value="grapes">Uva</option><option value="olives">Olive</option><option value="flour">Farina</option><option value="bread">Pane</option><option value="forage">Foraggio</option><option value="milk">Latte</option><option value="food">Cibo</option><option value="wood">Legna</option><option value="stone">Pietra</option><option value="iron">Ferro</option></select></label>
+      <label class="route-option"><input id="repeatRoute" type="checkbox" checked> Ripeti il trasporto finché non cambio ordine</label>
+      <button type="submit">Assegna trasporto</button>
+    </form>
+    <p id="transportStatus" role="status"></p><div id="routeList"></div>
+    <form id="productionForm">
+      <h3>Mestieri e allevamento</h3>
+      <label>Abitante<select id="workerSelect" required></select></label>
+      <label>Attività<select id="factorySelect" required></select></label>
+      <button type="submit">Assegna mestiere</button>
+    </form>
+    <p id="productionStatus" role="status"></p>
+    <p>I magazzini collegati al totem assegnano i materiali ai cantieri. I mercati riforniscono villaggi e artigiani. Ogni abitante consuma una razione ogni 30 giorni; le riparazioni richiedono pietra nell’edificio.</p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="tradeDialog" aria-labelledby="tradeTitle">
+    <header><h2 id="tradeTitle">Baratto fra comunità</h2><button id="closeTrade" type="button">Dettagli</button></header>
+    <p>Scegli un’offerta: la carovana carica al tuo mercato, viaggia verso l’altra comunità e torna con le merci ricevute.</p>
+    <label>Mercante<select id="tradePerson"></select></label>
+    <label>Mercato di destinazione<select id="tradeMarket"></select></label>
+    <div id="tradeBalances"></div>
+    <div id="tradeObservations" aria-live="polite"></div>
+    <form id="tradeForm">
+      <label>Mercato di partenza<select id="tradeSource"></select></label><label>Merce offerta<select id="tradeOffer"></select></label><label>Quantità offerta<input id="tradeOfferQuantity" type="number" min="1" value="10" required></label><input id="tradeSide" type="hidden" value="barter">
+      <label>Merce richiesta<select id="tradeGood"></select></label>
+      <label>Quantità<input id="tradeQuantity" type="number" min="1" step="1" inputmode="numeric" value="1" required></label>
+      <section id="tradePreview" aria-live="polite"></section>
+      <button id="confirmTrade" type="submit">Verifica accordo</button>
+      <button id="sendCaravan" type="button">Invia carovana</button>
+    </form><p id="tradeStatus" role="status"></p>
+  </section>
+  <section class="management-panel dock-panel" hidden id="linksDialog"><h2>Collegamenti dell’insediamento</h2><button id="closeLinks" type="button">Dettagli</button>
+    <p>Collegamenti automatici entro 12 tile. Campo ↔ Magazzino trasferisce automaticamente il raccolto finché c’è spazio; i magazzini collegati al totem finanziano le costruzioni.</p>
+    <form id="cityForm"><label>Nome dell’insediamento<input id="cityName" maxlength="60"></label><button type="submit">Rinomina</button></form><label>Struttura<select id="linkBuilding"></select></label><div id="linksList"></div>
+    <form id="linkForm"><label>Collegamento<select id="linkPair"></select></label><label>Risorsa<select id="linkGood"></select></label>
+    <label><input id="linkEnabled" type="checkbox" checked>Collegamento aperto</label><label><input id="linkImport" type="checkbox" checked>Importa sotto il minimo</label><label>Scorta minima destinazione<input id="linkMin" type="number" min="0" value="0"></label>
+    <label><input id="linkExport" type="checkbox" checked>Esporta eccedenze</label><label id="linkCommunitySaleLabel" hidden><input id="linkCommunitySale" type="checkbox">Vendi anche vino/olio della comunità</label><label>Scorta da trattenere alla fonte<input id="linkKeep" type="number" min="0" value="0"></label><button type="submit">Salva collegamento</button></form>
+    <form id="factoryPolicy"><label>Artigiani desiderati<input id="factoryWorkers" type="number" min="0" max="8" value="1"></label><label>Quota prodotti al magazzino (%)<input id="factoryReturn" type="number" min="0" max="100" value="75"></label><label id="pressRecipeLabel" hidden>Priorità del Torchio<select id="pressRecipe"><option value="">Automatica (prima uva)</option><option value="grapes-wine">Vino</option><option value="olives-oil">Olio</option></select></label><button type="submit">Imposta produzione</button></form><p id="linkStatus" role="status"></p>
+  </section>
+      </div>
+      <div hidden id="legacyLaunchers">
+        <button id="characterBtn" type="button"><b>Personaggio</b><span>abitante selezionato</span></button>
+        <button id="skillsBtn" type="button"><b>Skill</b><span>livelli e progresso</span></button>
+        <button id="knowledgeBtn" type="button"><b>Saperi</b><span>personali e tribali</span></button>
+        <button id="settlementBtn" type="button"><b>Insediamento</b><span>collegamenti e produzione</span></button>
+        <button id="logisticsBtn" type="button"><b>Filiera</b><span>inventari e trasporti</span></button>
+        <button id="tradeBtn" type="button"><b>Scambia</b><span>mercato e carico locale</span></button>
+        <button id="politicsBtn" type="button"><b>Diplomazia</b><span>lealtà, resistenza e influenza</span></button>
+      <div id="people"></div><div id="worldPanel"></div></div>
+    </nav>
+  </main>
+
+  <script>
+  (()=>{
+    const panel=document.getElementById('bootFault');
+    const detail=document.getElementById('bootFaultDetail');
+    let broken=false;
+    window.__verSacrumShowFault=(reason)=>{
+      if(broken)return;
+      broken=true;
+      detail.textContent=reason||'Ricarica la pagina. La partita salvata resta sul dispositivo.';
+      panel.hidden=false;
+      console.error('Ver Sacrum BUILD 185:',reason);
+    };
+    addEventListener('error',event=>{
+      if(event.target!==window){
+        const element=event.target;
+        if(element?.tagName==='SCRIPT'||element?.tagName==='LINK'){const file=(element.src||element.href||'').split('/').pop().split('?')[0];window.__verSacrumShowFault('File non caricato: '+file+'. Riprova fra qualche istante.');}
+      }else window.__verSacrumShowFault('Errore JavaScript: '+String(event.message||'sconosciuto').slice(0,140));
+    },true);
+    addEventListener('unhandledrejection',event=>window.__verSacrumShowFault('Errore JavaScript: '+String(event.reason?.message||event.reason||'sconosciuto').slice(0,140)));
+    document.getElementById('world').addEventListener('contextlost',()=>window.__verSacrumShowFault('La grafica del telefono si è interrotta. Ricarica la pagina.'));
+    setTimeout(()=>{if(!window.__verSacrumReady)window.__verSacrumShowFault('Il caricamento del gioco non è terminato. Riprova.');},20000);
+    setInterval(()=>{
+      if(document.hidden||broken||!window.__verSacrumReady)return;
+      const canvas=document.getElementById('world');
+      if(!canvas.width||!canvas.height||!window.__verSacrumFramePainted||performance.now()-window.__verSacrumFramePainted>20000)
+        window.__verSacrumShowFault('La mappa ha smesso di aggiornarsi. Ricarica la pagina.');
+    },10000);
+  })();
+  </script>
+  <script src="./game.js?v=166"></script>
+  <script src="./resources.js?v=124"></script>
+  <script src="./resource-chunks.js?v=129"></script>
+  <script src="./p16-render.js?v=25"></script>
+  <script src="./factions.js?v=61"></script>
+  <script src="./asset-render.js?v=116"></script>
+  <script src="./touch-modifier.js?v=77"></script>
+  <script src="./logistics.js?v=107"></script>
+  <script src="./market.js?v=85"></script>
+  <script src="./caravan.js?v=78"></script>
+  <script src="./livestock.js?v=79"></script>
+  <script src="./persistence.js?v=170"></script>
+  <script src="./neutral.js?v=93"></script>
+  <script src="./politics.js?v=81"></script>
+  <script src="./politics-integration.js?v=7"></script>
+  <script src="./war.js?v=79"></script>
+  <script src="./village-defense.js?v=3"></script>
+  <script src="./occupation.js?v=3"></script>
+  <script src="./rebellion.js?v=3"></script>
+  <script src="./groups-minimap.js?v=73"></script>
+  <script src="./streaming.js?v=120"></script>
+  <script src="./terrain-render-cache.js?v=122"></script>
+  <script src="./resource-render-cache.js?v=124"></script>
+  <script src="./community.js?v=77"></script>
+  <script src="./population.js?v=80"></script>
+  <script src="./equipment.js?v=44"></script>
+  <script src="./morale.js?v=1"></script>
+  <script src="./character.js?v=79"></script>
+  <script src="./skills.js?v=84"></script>
+  <script src="./construction-knowledge.js?v=113"></script>
+  <script src="./settlement.js?v=102"></script>
+  <script src="./village-footprint.js?v=86"></script>
+  <script src="./contextual-ui.js?v=114"></script>
+  <script src="./collisions.js?v=120"></script>
+  <script src="./pathfinding.js?v=2"></script>
+  <script src="./agriculture.js?v=87"></script>
+  <script src="./actor-collisions.js?v=100"></script>
+  <script src="./simulation-blocks.js?v=125"></script>
+  <script src="./construction-placement.js?v=121"></script>
+  <script src="./performance.js?v=122"></script>
+  <script src="./scenario.js?v=25"></script>
+  <script src="./civic-progress.js?v=2"></script>
+  <script src="./village-raid.js?v=1"></script>
+  <script src="./start-experience.js?v=6"></script>
+  <script src="./feedback-audio.js?v=1"></script>
+  <script src="./healing.js?v=6"></script>
+  <script src="./guard-duty.js?v=6"></script>
+  <script src="./tower-supply.js?v=1"></script>
+  <script src="./raider-loot.js?v=6"></script>
+  <script src="./ui-lotto-a.js?v=2"></script>
+  <script src="./ui-lotto-b.js?v=1"></script>
+  <script src="./ui-lotto-c.js?v=1"></script>
+  <script src="./ui-lotto-d-lavoro.js?v=1"></script>
+  <script src="./player-panels.js?v=1"></script>
+  <script src="./people-actions.js?v=2"></script>
+  <script src="./totem-exploration.js?v=1"></script>
+  <script src="./action-tap.js?v=2"></script>
+  <script src="./player-messages.js?v=1"></script>
+  <script src="./ui-layout.js?v=1"></script>
+  <script src="./boot.js?v=223"></script>
+</body>
+</html>

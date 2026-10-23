@@ -1,0 +1,13 @@
+# Audit della prossima filiera: uva e olive
+
+Verificato sul codice del gioco: `logistics.js` ha già le merci `grapes`/`olives` e le colture Vite/Olivo, con resa e stagioni distinte. Manca qualsiasi ricetta che le consumi. Dopo il raccolto diventano solo scorta da spostare o barattare; il pannello usa ancora i nomi inglesi di queste merci perché `game.js:resourceName` non le traduce. Le fabbriche esistenti sono mulino, forno, falegnameria, fornace, fonderia e telaio: chiamare «mulino» un luogo che produce vino/olio sarebbe fuorviante.
+
+Riferimenti letti:
+
+- [7kaa `src/OF_FACT.cpp`](https://github.com/the3dfxdude/7kaa/blob/master/src/OF_FACT.cpp), `FirmFactory::input_raw` e `manufacture`: materie prime ricevute come scorte e trasformate entro la capacità; l'idea da mantenere è il passaggio fisico fra edifici, senza copiarne prezzi o formule.
+- [Dodd, *The Archaeology of Wine Production in Roman and Pre-Roman Italy*, American Journal of Archaeology 126 (2022)](https://www.journals.uchicago.edu/doi/10.1086/719697): evidenze di pratiche vinicole pre-romane in Italia, con interpretazioni regionali ancora aperte.
+- [Dodd, *The Archaeology of Olive Oil Production in Roman and Pre-Roman Italy*, American Journal of Archaeology 130 (2026)](https://www.journals.uchicago.edu/doi/10.1086/737823): documenta olive e olio in Italia antica, ma sottolinea cronologie e distribuzioni regionali incerte. Il gioco non deve attribuire automaticamente una particolare tecnica a Umbri, Sanniti o Irpini senza prova locale.
+
+Proposta incrementale: un piccolo **Torchio** costruibile, con due ricette alternative `uva → vino` e `olive → olio`, unità intere, input/output reali, lavoro di una persona e capacità limitata. Aggiungere una skill personale `spremitura` che cresce solo lavorando al torchio e resta al cambio mestiere. Vino e olio iniziano come merci di scambio e di deposito, non come razioni o medicinali: quegli usi richiedono un bilanciamento separato. Costi, tempi e rendimenti sono parametri di gameplay dichiarati provvisori, non numeri storici.
+
+Punti da toccare nella tappa successiva: `game.js` per tipo/costo/etichetta/skill, `logistics.js` per capienza/ricette/professione/XP, `construction-knowledge.js` per requisito, `index.html` per pulsante, `market.js` per valori di scambio, `persistence.js` per migrazione di vecchi personaggi e domande di mercato, `asset-render.js` o fallback grafico coerente, cache offline e test su scorte, skill, salvataggio, vecchie partite. La produzione deve usare l'infrastruttura fabbrica già esistente invece di inventare una seconda simulazione.

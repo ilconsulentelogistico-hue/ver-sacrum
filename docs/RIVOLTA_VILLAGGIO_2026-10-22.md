@@ -1,0 +1,7 @@
+# Rivolta di un villaggio conquistato
+
+Un villaggio conquistato può ribellarsi solo dopo 90 giorni di assestamento e altri 90 giorni di preavviso continuativo. Alla scadenza devono ancora essere scontente (fiducia ≤25) almeno due terzi delle persone originarie vive. Se cibo, salute e lavoro alzano la fiducia, il preavviso si azzera e la rivolta non scatta. Le adesioni pacifiche sono escluse.
+
+Alla rivolta, le stesse persone con `neutralSettlementId` originale e gli stessi edifici e animali con `integrationOriginOwner` tornano alla fazione 1/2. ID, skill, XP, carichi, inventari e alloggi compatibili non vengono ricreati né svuotati. Prima del cambio, residenti in case della futura fazione opposta vengono fatti uscire; se manca un passaggio libero, il cambio viene rinviato. Gli incarichi di agricoltura e produzione che restano nella stessa comunità proseguono con le stesse persone; gli altri incarichi incompatibili si fermano mantenendo il carico. Il magazzino originale di un vecchio salvataggio senza provenienza certa resta del giocatore, insieme a ogni sua costruzione successiva. La casa comune ribellata torna ostile ed è indicata come «Ribellata» in Diplomazia. Il giocatore può affrontarla di nuovo con le normali regole d\x27assalto; nessun combattente viene creato.
+
+Test in `tests/occupation-rebellion.cjs`. Questa tappa verifica il cambio, il salvataggio e la distinzione dei beni; la prova di comportamento prolungato dopo una rivolta sarà una tappa successiva.

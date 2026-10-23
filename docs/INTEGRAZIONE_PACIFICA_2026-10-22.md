@@ -1,0 +1,7 @@
+# Prima integrazione pacifica
+
+Il Clan del Guado e la Lega delle Colline possono aderire alla comunità del giocatore dopo un'alleanza stabile. Condizioni: influenza almeno 90, lealtà almeno 75, resistenza non oltre 20, nessuna carenza di cibo e almeno un abitante vivo. Le condizioni devono durare 60 giorni di gioco; una carenza o la perdita dell'alleanza azzera l'attesa. L'azione esplicita «Chiedi adesione» appare in Diplomazia. Le Genti Neutrali mantengono la neutralità permanente.
+
+Alla conferma, persone, strutture e animali della fazione cambiano proprietario senza creare copie. ID, skill, XP, inventari personali, merci nei depositi, case e residenti rimangono gli stessi. I lavori locali in corso continuano con le stesse persone; le carovane in viaggio si fermano e i carichi restano alle persone. Il vecchio nome della comunità e il registro diplomatico rimangono sulla casa comune, insieme all'origine dell'adesione. L'azione è idempotente per ID di transazione e lo stato è salvato nelle regole politiche v3.
+
+È una prima forma di integrazione: il consenso si misura oggi su valori della comunità, non ancora persona per persona. Non ci sono amministrazione locale, autonomia, secessione né riconoscimento territoriale completo. La conquista militare resta separata. Prima di aumentare il numero di villaggi occorre verificare le interazioni con il numero di case comuni, i collegamenti logistici e la difesa.

@@ -1,0 +1,5 @@
+# Risorse nuove disponibili offline — 22/10/2026
+
+La cache iniziale della PWA include ora i sei SVG delle risorse argilla, rame e stagno (stato pieno e basso) e gli sprite delle tre botteghe aggiunte: fornace ceramica, telaio, fonderia. I nove file sono piccoli e già presenti nel progetto. `tests/offline-assets.cjs` controlla che l’elenco non abbia doppioni e che ogni percorso punti a un file esistente; una risorsa mancante farebbe fallire l’installazione dell’intero service worker.
+
+Prova Chromium: pagina aperta online con service worker attivo, verifica che i nove file siano nella CacheStorage, rete disattivata, pagina ricaricata offline. Il mondo e 14 persone si sono ricaricati, con icone di rame, stagno e fonderia disponibili (dimensioni immagini 32, 32 e 48 px). Script e screenshot in `Rtsmobile-ricerca/browser-offline/`. Unico 404 online: favicon non presente. La prova usa un browser sul server, non il Redmi Note 10 fisico; non misura autonomia, temperatura o prestazioni del telefono.

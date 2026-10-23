@@ -1,0 +1,19 @@
+# Inventario grafico effettivo · Ver Sacrum BUILD 172
+
+autore: Codex (CODEX-GH) · 23/10/2026 · solo lettura del renderer, nessuna integrazione grafica
+
+La cartella `assets/` contiene **65 immagini** (esclusi i generatori Python). I riferimenti vivi sono in `asset-render.js`, `p16-render.js`, `settlement.js`, `village-footprint.js`, `agriculture.js`, `construction-placement.js`, `game.js`, `index.html` e `app.css`. Conta l’ultima funzione di disegno caricata, non solo il file elencato da `asset-render.js`. Essere precaricato dal service worker non significa apparire nel gioco.
+
+| Categoria | Disegno corrente realmente raggiunto | Da considerare nel set futuro |
+|---|---|---|
+| Terreno | **9 biomi** (`sea`, `river`, `beach`, `grass`, `forest`, `scrub`, `plain`, `mountain`, `marsh`) e strade prodotti da `p16-render.js` su griglia 16×16; nessuna tessera PNG di terreno | 9 famiglie di tessere più raccordi di costa, acqua, strada, rilievo e colture, senza cambiare per ora il renderer |
+| Risorse | **22 SVG** in `assets/terrain/resources/`: bosco e bacche 4 stati ciascuno; pietra e minerale ferro 2 orientamenti × 2 stati ciascuno; argilla, rame e stagno 2 stati ciascuno. **4 PNG P16** albero/pietra/ferro/bacca come ripiego | Varianti di quantità, legna, cibo, pietra, ferro, argilla, rame e stagno; raccolti e merci fisiche hanno oggi anche segni procedurali/UI |
+| Edifici | **6 PNG P16** effettivamente visibili tramite `asset-render.js`: torre, mulino, fornace, telaio, fonderia, torchio. Le case usano `village_house.svg` in `village-footprint.js`; campo e palizzata sono ridisegnati da `agriculture.js` e `construction-placement.js`. Totem/Casa comune e falegnameria sono procedurali in `settlement.js`. Il PNG del magazzino è illeggibile anche dal browser: appare il ripiego procedurale di `game.js`. Altri tipi senza PNG specifico usano anch’essi il disegno procedurale | Anche totem, villaggio/case, falegnameria, forno, recinto e mercato; stati di cantiere e danno |
+| Abitanti e mestieri | **10 SVG** in `assets/tokens/professions/`: libero, taglialegna, minatore, contadino, costruttore, trasportatore, mugnaio, fornaio, allevatore, mobilitato. `asset-render.js` li colora per fazione e li mostra come token; il PNG umano generico non è chiamato | Identità e mestiere riconoscibili a scala mobile, direzione/ancora stabili, colori di fazione senza cancellare l’abito |
+| Animali | **12 SVG**: pecora, capra, bovino e lupo × vivo/morto/scheletro; PNG P16 di pecora/lupo come ripiego | Silhouette e stati distinti, dimensioni coerenti con gli abitanti |
+| Razziatori | **1 PNG P16** `unit_raider_p16.png`, ruotato dal renderer in 8 direzioni | Silhouette ostile leggibile senza costume “etnico” inventato |
+| Icone/UI | **1 PNG** di selezione; HUD, pulsanti, menu e paperdoll sono soprattutto CSS/testo e SVG del mestiere `libero`; segni di fazione/collegamento sono tracciati in canvas | Selezione, comandi e indicatori touch da valutare separatamente; niente pittura sopra testo HTML |
+
+**File presenti ma non mostrati normalmente:** `unit_human_p16.png` e `unit_human_token.svg` non sono chiamati dal renderer corrente. I PNG `building_house_p16.png`, `building_farm_p16.png` e `building_palisade_p16.png` vengono caricati ma i rispettivi disegni sono sostituiti da moduli successivi. `building_warehouse_p16.png` ha l’intestazione PNG ma una struttura interna malformata: Pillow lo rifiuta e il browser pubblicato non lo carica (`naturalWidth=0`); il magazzino rimane visibile grazie al ripiego procedurale. `village_house.svg` è invece davvero mostrato nelle casette dei villaggi. I PNG risorse/animali di ripiego restano utilizzabili se un SVG non arriva.
+
+Il campione che segue mette alla prova **terreno + risorse + 4 strutture + 5 mestieri + pecora + razziatore** in una sola scena. Resta soltanto nella documentazione: nessun riferimento in `index.html`, renderer o service worker.

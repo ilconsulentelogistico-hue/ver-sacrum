@@ -1,0 +1,9 @@
+# Audit degli scambi neutrali
+
+Fonte viva: `market.js`, `caravan.js`, `neutral.js`, simulazione seed 123456 senza incursioni/fauna. Script e JSON in `Rtsmobile-ricerca/audit-scambi-neutrali/`.
+
+Al giorno 320 i villaggi agricoli hanno merci reali nei mercati: Guado 168 cereali, 34 farine e 3 pani; Colline 142 orzi, 7 farine d’orzo e 5 pani d’orzo. Le scorte del magazzino e dei laboratori sono distinte; il preventivo usa solo il mercato, quindi non promette merci non disponibili lì. Le tratte Guado–Colline, Guado–Genti e Colline–Genti sono percorribili (rispettivamente 129, 86 e 65 passi nella prova). Per tutte le coppie con un mercante in piedi nel mondo esiste almeno un baratto 1:1 accettabile, ma al giorno 320 i quattro abitanti sono occupati in campo, mulino, raccolta e forno. Sottrarli romperebbe la filiera.
+
+Al giorno 500 Guado ha 5 persone, Colline 6, Genti 5; i nuovi abitanti in casa non hanno incarichi. Prova manuale con un residente del Guado, liberato dalla propria casa e inviato al mercato delle Colline: 525 aggiornamenti di movimento, 1 cereale ceduto, 1 orzo ricevuto, carico tornato a zero e abilità commercio aumentata. Il cereale non scompare: passa da 148 a 147 al Guado e da 0 a 1 alle Colline; l’orzo passa da 196 a 195 alle Colline e da 0 a 1 al Guado. Nessuna merce creata.
+
+Il giocatore parte senza mercato: deve costruirlo per commerciare. Le Genti Neutrali restano senza produzione differenziata e non hanno un commerciante libero al giorno 500; non le forziamo in una carovana. La prossima tappa può assegnare un solo residente adulto libero di ciascun villaggio agricolo, dopo che la popolazione ha superato i quattro lavoratori essenziali, scegliendo un baratto utile e verificato. Deve limitare frequenza e carico, non sottrarre i lavoratori già impegnati, mantenere conservazione delle risorse e salvataggio.

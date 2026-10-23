@@ -1,0 +1,9 @@
+# Razioni neutrali dai magazzini collegati
+
+Seed 123456, senza incursioni e senza carovane: al giorno 810 le Colline possedevano 47 pani d’orzo nel magazzino ma nessun alimento nel mercato, quasi pieno di orzo. Casa e laboratorio consultavano solo il mercato e gli abitanti iniziavano a morire di fame. Un primo intervento che rendeva disponibili quei pani spostava il collasso al giorno 1100: il forno restava senza farina perché il mercato pieno non poteva riceverla dal magazzino, anche se il magazzino ne conteneva 192 al giorno 1000.
+
+Ora i neutrali possono consumare razioni già presenti in un magazzino della propria fazione se è collegato, attraverso un mercato aperto, alla casa o al laboratorio dove lavorano. Il cibo viene sottratto dall’inventario reale del magazzino; un collegamento chiuso o di altra fazione non dà accesso. Il giocatore conserva le regole attuali. I laboratori neutrali possono prendere un ingrediente dal magazzino attraverso lo stesso mercato collegato quando i suoi scaffali sono pieni. Il trasferimento sposta la merce esistente senza crearla e rispetta la regola di esportazione del collegamento.
+
+Prova di 1200 giorni senza carovane: prima della modifica alle Colline rimaneva una persona; con solo l’accesso al pane già esistente, al giorno 1200 non restava nessuno; con entrambe le correzioni rimangono sei persone con salute 100 e 119 pani d’orzo. Con le carovane attive, Guado e Colline hanno sei persone ciascuno al giorno 1200 e tre partenze commerciali per villaggio. Script e risultati nelle quattro tracce di `Rtsmobile-ricerca/razioni-neutrali-collegate/`.
+
+Test mirati: consumo di un pane con link aperto e rifiuto con link chiuso; farina trasferita al forno da un magazzino collegato con mercato pieno e quantità totale invariata, rifiuto con link chiuso. La suite completa è nell’esito di ricerca.

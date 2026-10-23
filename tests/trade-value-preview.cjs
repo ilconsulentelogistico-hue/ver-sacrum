@@ -1,0 +1,32 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const setup=require('./economy-fixture.cjs');
+
+test('the barter preview uses the same market values and trade skill as the acceptance check',()=>{
+ const {g,d,b,byId,run}=setup();
+ g.ensureMarkets();
+ const offered=g.marketPrice(b,d.offerGood)*d.offerQuantity*run(`TERRA_SKILLS.tradeFactor(${d.trader.skills.trading})`);
+ const requested=g.marketPrice(b,d.good)*d.quantity;
+ const text=g.tradeValuePreview(d);
+ assert.match(text,/Valore indicativo:/);
+ assert(text.includes(`offerta ${offered.toFixed(1)}`));
+ assert(text.includes(`richiesta ${requested.toFixed(1)}`));
+ assert(text.includes(`rapporto ${(offered/requested).toFixed(2)}×`));
+ assert.match(text,/non moneta/);
+ g.openTrade();
+ byId.tradePerson.value=d.trader.id;
+ byId.tradeSource.value=d.source.id;
+ byId.tradeMarket.value=b.id;
+ byId.tradeOffer.value=d.offerGood;
+ byId.tradeOfferQuantity.value=String(d.offerQuantity);
+ byId.tradeGood.value=d.good;
+ byId.tradeQuantity.value=String(d.quantity);
+ g.updateTradePreview();
+ assert.match(byId.tradePreview.textContent,/Valore indicativo:/);
+ const before=g.tradeValuePreview(d);
+ b.inventory.items[d.good]+=80;
+ assert.notEqual(g.tradeValuePreview(d),before);
+ assert.equal(g.tradeValuePreview({...d,quantity:0}),'');
+ assert.equal(g.tradeValuePreview({...d,offerGood:'unknown'}),'');
+ assert.equal(b.money,0);
+});
