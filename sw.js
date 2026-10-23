@@ -1,4 +1,4 @@
-const CACHE='terra-italica-v271';
+const CACHE='terra-italica-v272';
 const ASSETS=[
   './',
   './index.html',
@@ -31,7 +31,7 @@ const ASSETS=[
   './guard-duty.js',
   './tower-supply.js',
   './raider-loot.js',
-  './ui-lotto-a.js','./ui-lotto-b.js','./ui-lotto-c.js','./totem-exploration.js',
+  './ui-lotto-a.js','./ui-lotto-b.js','./ui-lotto-c.js','./ui-lotto-d-lavoro.js','./totem-exploration.js',
   './boot.js',
   './start-experience.js',
   './scenario.js',

@@ -7,14 +7,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./app.css?v=124">
+  <link rel="stylesheet" href="./app.css?v=125">
   <title>Ver Sacrum — RTS Mobile</title>
 </head>
 <body>
   <main id="app" class="app-shell">
     <header class="hud-top" aria-label="Stato della comunità">
       <div class="identity">
-        <strong>VER SACRUM <small style="font-size:8px;opacity:.55;letter-spacing:.08em">BUILD 181</small></strong>
+        <strong>VER SACRUM <small style="font-size:8px;opacity:.55;letter-spacing:.08em">BUILD 182</small></strong>
         <span id="sessionState" role="status"></span><span id="dateLabel">1 Marzo · 1000 a.C.</span>
       </div>
       <div class="hud-actions" aria-label="Comandi del tempo e persone libere">
@@ -56,7 +56,7 @@
     <section class="world-wrap" id="worldWrap">
       <canvas id="world" aria-label="Mappa di gioco"></canvas>
       <div id="bootLoading" role="status" style="position:absolute;z-index:40;inset:0;display:grid;place-content:center;padding:20px;background:#233126;color:#eee1ba;font:600 17px system-ui;text-align:center">Preparo il territorio…</div>
-      <section id="bootFault" role="alert" hidden style="position:absolute;z-index:200;inset:12px;place-content:center;gap:10px;padding:20px;border:2px solid #caa76a;border-radius:12px;background:#1b201af2;color:#fff2d7;font:16px/1.4 system-ui;text-align:center;touch-action:auto"><strong>Il gioco non riesce a mostrare la mappa.</strong><span id="bootFaultDetail">Ricarica la pagina. La partita salvata resta sul dispositivo.</span><button type="button" onclick="location.reload()" style="min-height:48px;border-radius:8px;background:#846a3d;color:white;font:inherit">Riprova</button><small>BUILD 181</small></section>
+      <section id="bootFault" role="alert" hidden style="position:absolute;z-index:200;inset:12px;place-content:center;gap:10px;padding:20px;border:2px solid #caa76a;border-radius:12px;background:#1b201af2;color:#fff2d7;font:16px/1.4 system-ui;text-align:center;touch-action:auto"><strong>Il gioco non riesce a mostrare la mappa.</strong><span id="bootFaultDetail">Ricarica la pagina. La partita salvata resta sul dispositivo.</span><button type="button" onclick="location.reload()" style="min-height:48px;border-radius:8px;background:#846a3d;color:white;font:inherit">Riprova</button><small>BUILD 182</small></section>
       <div id="pauseNotice" class="pause-notice hidden" role="status"><strong>Partita in pausa</strong><span>Gli ordini partiranno quando riprendi.</span><button id="resumeGame" type="button">Riprendi partita ▶</button></div>
       <div class="map-controls" aria-label="Controlli mappa">
         <button id="zoomIn" type="button" aria-label="Aumenta zoom">+</button>
@@ -268,7 +268,7 @@
       broken=true;
       detail.textContent=reason||'Ricarica la pagina. La partita salvata resta sul dispositivo.';
       panel.hidden=false;
-      console.error('Ver Sacrum BUILD 181:',reason);
+      console.error('Ver Sacrum BUILD 182:',reason);
     };
     addEventListener('error',event=>{
       if(event.target!==window){
@@ -338,7 +338,8 @@
   <script src="./ui-lotto-a.js?v=2"></script>
   <script src="./ui-lotto-b.js?v=1"></script>
   <script src="./ui-lotto-c.js?v=1"></script>
+  <script src="./ui-lotto-d-lavoro.js?v=1"></script>
   <script src="./totem-exploration.js?v=1"></script>
-  <script src="./boot.js?v=218"></script>
+  <script src="./boot.js?v=219"></script>
 </body>
 </html>

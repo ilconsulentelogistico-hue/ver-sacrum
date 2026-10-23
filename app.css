@@ -125,3 +125,5 @@ html.desktop-input .desktop-mod-tip{display:block}
 @media(orientation:landscape) and (max-height:650px){.builder-choice{grid-column:auto;grid-template-columns:1fr;align-items:center;padding:2px 5px;gap:2px}.builder-choice select{min-height:30px}.builder-choice small{display:none}}
 
 .builder-choice{min-width:0}.builder-choice select{min-width:0;width:100%;text-overflow:ellipsis}
+
+.workplace-choice{display:flex;flex-wrap:wrap;align-items:end;gap:8px;margin-top:10px;padding:9px;border:1px solid #6b7258;border-radius:8px;background:#263026}.workplace-choice label{display:grid;gap:4px;flex:1 1 150px;min-width:0}.workplace-choice select{width:100%;min-width:0}.workplace-choice button{min-height:42px}.workplace-choice small{flex-basis:100%;color:#d5caaa}
