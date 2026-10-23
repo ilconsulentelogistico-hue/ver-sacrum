@@ -44,6 +44,7 @@
           <button id="saveBtn" type="button"><b>Salva</b><span id="saveStatus">Nessun salvataggio</span></button>
           <button id="loadBtn" type="button"><b>Carica</b><span id="loadStatus">Controllo salvataggio…</span></button>
           <button id="newWorldBtn" type="button"><b>Nuovo mondo</b><span>chiede conferma</span></button>
+          <button id="guideBtn" type="button"><b>Guida</b><span>rivedi i primi passi</span></button>
           <details id="gameSettings" class="menu-settings"><summary>Impostazioni</summary><div>
             <button id="soundToggle" type="button" aria-pressed="true">Suoni: attivi</button>
             <button id="forceBuildBtn" type="button"><b>Aggiorna il gioco</b><span>scarica l’ultima versione</span></button>
@@ -65,6 +66,7 @@
       <button id="touchModifier" class="touch-modifier" type="button" aria-label="Tieni premuto per selezionare; MOD e tap annulla la costruzione" aria-pressed="false"><span>MOD</span></button>
       <div id="message" class="message" role="status"></div>
       <canvas id="minimap" class="minimap" width="160" height="112" aria-label="Minimappa navigabile"></canvas>
+      <button id="minimapToggle" class="minimap-toggle" type="button" aria-pressed="false" aria-label="Nascondi la minimappa">×</button>
       <section id="startExperience" class="start-experience hidden" aria-label="Inizio della partita" role="dialog" aria-modal="true">
         <div class="start-card">
           <small>VER SACRUM · NUOVA PARTITA</small>
@@ -83,12 +85,13 @@
         </div>
       </section>
       <section id="exploreBar" class="explore-bar hidden" aria-label="Esplorazione"><div class="explore-text"><b id="exploreTitle">Esplorazione</b><span id="exploreHint" role="status"></span></div><div class="explore-actions"><button id="plantTotem" type="button" disabled>Pianta il totem qui</button><button id="exploreBack" type="button" class="secondary">Cambia scelta</button></div></section>
-      <details id="scenarioStatus" class="scenario-status hidden"><summary id="scenarioSummary">Confederazione</summary><p id="scenarioNext"></p><button id="scenarioNextButton" type="button" class="hidden">Prossimo passo</button><p id="scenarioGoals"></p><p id="scenarioThreat"></p><button id="scenarioThreatButton" type="button" class="hidden">Mostra minaccia sulla mappa</button><button id="scenarioThiefButton" type="button" class="hidden">Segui ladro col cibo</button><button id="scenarioThiefInterceptButton" type="button" class="hidden">Intercetta con un mobilitato</button><button id="scenarioRecoveredFoodButton" type="button" class="hidden">Mostra cibo recuperato</button><button id="scenarioCollectFoodButton" type="button" class="hidden">Raccogli con abitante</button><button id="scenarioRallyButton" type="button" class="hidden">Raduna difensori</button><button id="scenarioStoreDefenseButton" type="button" class="hidden">Difendi magazzino</button><button id="scenarioStoreFocusButton" type="button" class="hidden">Mostra magazzino</button><button id="scenarioReleaseButton" type="button" class="hidden">Congeda difensori</button></details>
+      <details id="scenarioStatus" class="scenario-status hidden"><summary id="scenarioSummary">Confederazione</summary><p id="scenarioNext"></p><button id="scenarioNextButton" type="button" class="hidden">Prossimo passo</button><p id="scenarioGoals"></p><p id="scenarioThreat"></p><button id="scenarioThreatButton" type="button" class="hidden">Mostra minaccia sulla mappa</button><button id="scenarioThiefButton" type="button" class="hidden">Segui ladro col cibo</button><button id="scenarioThiefInterceptButton" type="button" class="hidden">Intercetta con un mobilitato</button><button id="scenarioRecoveredFoodButton" type="button" class="hidden">Mostra cibo recuperato</button><button id="scenarioCollectFoodButton" type="button" class="hidden">Raccogli con abitante</button><button id="scenarioRallyButton" type="button" class="hidden">Raduna difensori</button><div id="scenarioDefendChoices" class="scenario-defend" hidden></div><button id="scenarioStoreDefenseButton" type="button" class="hidden">Difendi magazzino</button><button id="scenarioStoreFocusButton" type="button" class="hidden">Mostra magazzino</button><button id="scenarioReleaseButton" type="button" class="hidden">Congeda difensori</button></details>
       <div id="gameOver" class="game-over hidden">
         <div>
           <small id="gameResultEyebrow">FINE DELLA COMUNITÀ</small>
           <h1 id="gameResultTitle">L'insediamento è caduto</h1>
           <p id="gameResultText">Il mondo resta deterministico: puoi ricominciare dalla stessa geografia o generare un territorio nuovo.</p>
+          <ul id="gameSummary" class="game-summary"></ul>
           <button id="restartSame" type="button">Ricomincia</button>
           <button id="restartNew" type="button" class="secondary">Nuovo territorio</button>
         </div>
@@ -339,6 +342,7 @@
   <script src="./ui-lotto-b.js?v=1"></script>
   <script src="./ui-lotto-c.js?v=1"></script>
   <script src="./ui-lotto-d-lavoro.js?v=1"></script>
+  <script src="./player-panels.js?v=1"></script>
   <script src="./totem-exploration.js?v=1"></script>
   <script src="./boot.js?v=219"></script>
 </body>
