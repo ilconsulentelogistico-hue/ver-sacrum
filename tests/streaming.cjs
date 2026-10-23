@@ -30,7 +30,7 @@ test('active work target chunk is retained while ordinary old chunks leave',()=>
 });
 
 test('pathfinding records and respects its expansion budget',()=>{
-  const {g}=make();g.pathBudget.maxExpansions=1;assert.equal(g.findPath(g.units[0].x,g.units[0].y,80,80).length,0);assert.equal(g.pathBudget.lastExpansions,1);
+  const {g}=make();g.pathBudget.maxExpansions=1;g.pathBudget.maxLongSettled=0;assert.equal(g.findPath(g.units[0].x,g.units[0].y,80,80).length,0);assert.equal(g.pathBudget.lastExpansions,1);
   g.pathBudget.maxExpansions=5000;let path=[];for(let y=0;y<g.world.size&&!path.length;y++)for(let x=0;x<g.world.size&&!path.length;x++)path=g.findPath(g.units[0].x,g.units[0].y,x,y);assert(path.length>0);assert(g.pathBudget.lastExpansions<=5000);
 });
 

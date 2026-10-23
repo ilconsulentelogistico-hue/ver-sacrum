@@ -17,7 +17,8 @@ test('priority queue preserves established routes and expansion budget',()=>{
     assert.equal(crypto.createHash('sha256').update(JSON.stringify(path)).digest('hex'),hash);
     assert.equal(g.pathBudget.lastExpansions,expansions);
   }
-  g.pathBudget.maxExpansions=1;
+  // With the long search off, the budget still caps the A*; pathfinding.cjs covers the long search.
+  g.pathBudget.maxExpansions=1;g.pathBudget.maxLongSettled=0;
   assert.equal(g.findPath(u.x,u.y,60,60).length,0);
   assert.equal(g.pathBudget.lastExpansions,1);
 });

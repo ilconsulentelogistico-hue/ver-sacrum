@@ -1,4 +1,4 @@
-const CACHE='terra-italica-v273';
+const CACHE='terra-italica-v274';
 const ASSETS=[
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS=[
   './actor-collisions.js',
   './agriculture.js',
   './collisions.js',
+  './pathfinding.js',
   './contextual-ui.js',
   './settlement.js',
   './village-footprint.js',

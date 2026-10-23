@@ -1,4 +1,4 @@
-# Ver Sacrum — BUILD 182
+# Ver Sacrum — BUILD 183
 
 Gioco strategico per smartphone ambientato in un’Italia preromana immaginata con prudenza. Parti con cinque giovani, scegli dove fondare il villaggio e fai crescere persone, mestieri, economia e rapporti con le altre comunità. Puoi giocare una **Confederazione** con vittoria e sconfitta oppure una partita **sandbox**.
 
@@ -10,7 +10,9 @@ Dalla scheda Dettagli di un campo, recinto o bottega completati si può **aggiun
 
 BUILD 182 completa il rifacimento dell’interfaccia (Lotto D, Claude): durante una razzia restano «Mostra razziatore», un solo «Difendi» (Casa comune o magazzino minacciato), «Insegui il ladro» e «Recupera cibo a terra»; nella scheda Abilità «Impara da…» propone il maestro più utile; torri e magazzini assegnano la propria sentinella; chi vive in un Distretto può «Fai uscire» o «Arruola», e l’ordine «Entra» si chiama «Vai a vivere»; i trasporti scelgono partenza e arrivo toccando gli edifici sulla mappa; la Guida si riapre dal menu Partita, la minimappa si richiude, gli oggetti si indossano toccando la figura e la fine partita mostra un riepilogo. Interfaccia **PROVVISORIA, da approvare da Simone**.
 
-Il [gioco su GitHub Pages](https://ilconsulentelogistico-hue.github.io/ver-sacrum/) mostra la BUILD 182 dal ramo `codex/partita-completa`, mentre la PR #1 è aperta. Dopo il merge di Simone, impostare **Settings → Pages → Deploy from a branch → `main` → `(root)`**. Il gioco è statico: non richiede una build né un server applicativo; i percorsi sono relativi.
+BUILD 183 corregge i percorsi (Claude): un ordine verso un punto oltre il fiume o un dislivello non lascia più la persona ferma. La ricerca di prima resta identica (stessi percorsi, stesso limite di 5000 passi) ma legge terreno ed edifici da una griglia preparata; se il limite finisce su una meta raggiungibile, una ricerca che parte dalla meta trova il giro ed è condivisa da chi va nello stesso punto (idea dei campi di flusso di Mindustry, nessun codice copiato). Se il punto non si raggiunge a piedi (mare, area chiusa) la persona va al punto raggiungibile più vicino; un avviso lo dice, e dice anche quando la strada è un lungo giro.
+
+Il [gioco su GitHub Pages](https://ilconsulentelogistico-hue.github.io/ver-sacrum/) mostra la BUILD 183 dal ramo `codex/partita-completa`, mentre la PR #1 è aperta. Dopo il merge di Simone, impostare **Settings → Pages → Deploy from a branch → `main` → `(root)`**. Il gioco è statico: non richiede una build né un server applicativo; i percorsi sono relativi.
 
 Alla prima apertura scegli:
 
@@ -40,7 +42,7 @@ Questa build comprende risorse e merci fisiche, raccolta, agricoltura, allevamen
 
 Se una razzia parte a 2× o 4×, la partita torna a 1× con un avviso e continua senza pausa. Il pannello Confederazione suggerisce il **Prossimo passo** in base a casa, mercato, persone, botteghe e relazioni reali: il pulsante apre la scheda o mostra il cantiere giusto. Avvisa anche delle razzie, porta con un tocco alla minaccia e raduna fino a tre abitanti reali a difesa della casa comune. Dopo lo scontro li congeda con un tocco; i residenti tornano alla loro casa.
 
-Ultima suite completa: BUILD 182 **508/508** (Claude, 23/10/2026). Tre partite automatiche sulla mappa 256×256 con salvataggio a metà: vittoria al giorno 305, sconfitta al 464, sandbox viva al 449. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
+Ultima suite completa: BUILD 183 **513/513** (Claude, 23/10/2026). Tre partite automatiche sulla mappa 256×256 con salvataggio a metà: vittoria al giorno 305, sconfitta al 464, sandbox viva al 449. Le partite automatiche coprono vittoria, sconfitta e sandbox con salvataggio a metà; vittoria, sconfitta e sandbox sono state verificate anche sulla mappa 256×256. Le prove browser in verticale e orizzontale non hanno mostrato errori JavaScript. La prova fisica sul Redmi Note 10 e la mappa 512×512 restano da fare. Con 300 persone sintetiche sul server il frame p95 ha superato la soglia ideale di 33 ms: il risultato non misura il telefono di Simone.
 
 Per eseguire i test da una copia locale con Node.js:
 
