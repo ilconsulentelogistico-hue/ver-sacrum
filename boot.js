@@ -64,7 +64,7 @@ if ('serviceWorker' in navigator && !new URLSearchParams(location.search).has('p
   window.addEventListener('load', async () => {
     try {
       // A newly installed worker must not interrupt the start screen or an active game.
-      const registration=await navigator.serviceWorker.register('./sw.js?v=274', {updateViaCache:'none'});
+      const registration=await navigator.serviceWorker.register('./sw.js?v=275', {updateViaCache:'none'});
       await registration.update();
       if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
       registration.addEventListener('updatefound', () => {

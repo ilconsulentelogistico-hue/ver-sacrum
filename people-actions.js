@@ -163,6 +163,39 @@
     return result;
   };
 
+  // --- Construction sites and Districts reached by the action tap (action-tap.js).
+  const label = b => BUILD_LABEL[b.type] || b.type;
+  Game.prototype.sendToSite = function(group, site) {
+    const sent = group.filter(u => this.assignBuild(u, site));
+    if (sent.length) this.message(sent.length > 1 ? `${sent.length} abitanti vanno al cantiere: ${label(site)}.` : `${sent[0].name} va al cantiere: ${label(site)}.`);
+    return sent.length;
+  };
+  Game.prototype.moveInGroup = function(group, house) {
+    const free = Math.max(0, 5 - this.villagePeople(house).length);
+    if (!free) { this.message('Distretto pieno: non ci sono posti liberi.'); return 0; }
+    const sent = group.slice(0, free).filter(u => { this.assignEnter(u, house); return u.task?.type === 'enter' && u.task.target === house.id || u.location.kind === 'resident'; });
+    if (sent.length > 1) this.message(`${sent.length} abitanti vanno a vivere nel Distretto.`);
+    return sent.length;
+  };
+  // The order now says that it was taken: the person walks to the door, then leaves the map.
+  const assignEnter = Game.prototype.assignEnter;
+  Game.prototype.assignEnter = function(u, b, ...rest) {
+    const result = assignEnter.call(this, u, b, ...rest);
+    if (u?.owner === 0 && u.task?.type === 'enter' && u.task.target === b?.id) this.message(`${u.name} va a vivere nel Distretto: quando arriva lascia la mappa.`);
+    return result;
+  };
+  const orderHelp = Game.prototype.orderHelp;
+  Game.prototype.orderHelp = function(o) { return o === 'enter' ? 'Tocca il Distretto dove andrà a vivere.' : orderHelp.call(this, o); };
+  const siteHTML = Game.prototype.selectionHTML;
+  Game.prototype.selectionHTML = function(e) {
+    let html = siteHTML.call(this, e);
+    if (e instanceof Building && e.owner === 0 && e.alive && !e.built) {
+      const builders = this.units.filter(u => u.health > 0 && u.task?.type === 'build' && u.task.target === e.id);
+      html += builders.length ? `<p>Al lavoro: ${builders.map(u => esc(u.name)).join(', ')}.</p>` : '<p>Nessuno ci lavora: seleziona un abitante e tocca il cantiere.</p>';
+    }
+    return html;
+  };
+
   const initUI = Game.prototype.initUI;
   Game.prototype.initUI = function() {
     initUI.call(this);

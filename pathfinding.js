@@ -289,6 +289,7 @@
   const assignMove = Game.prototype.assignMove;
   Game.prototype.assignMove = function(u, tx, ty) {
     const result = assignMove.call(this, u, tx, ty), sx = Math.floor(u.x), sy = Math.floor(u.y);
+    if (u?.owner !== 0) return result;
     if (u.path.length) {
       if (u.path.length > 2.5 * Math.hypot(tx - sx, ty - sy) + 20) note(this, 'long', u);
       return result;
